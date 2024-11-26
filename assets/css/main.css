@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+* {
+	@apply font-inter;
+}
+
+.input {
+	@apply flex h-8 px-3 py-2 justify-between items-center self-stretch rounded-md border border-gray-300 bg-white text-gray-900 text-sm font-normal min-w-[220px];
+}
+.button-gray {
+	@apply rounded-lg bg-gray-100 text-gray-700 hover:!bg-gray-100 hover:!text-gray-800 !h-8 !py-2 !px-3 !gap-1.5 !text-sm !font-medium !normal-case !font-sans !shadow-none;
+}
+
+.button-green {
+	@apply rounded-lg bg-[#00b567]  !border-none !h-8 !py-2 !px-3 !gap-1.5 !text-sm !font-medium !normal-case !font-sans !shadow-none;
+}
+
+.button-green .p-button-icon {
+	font-size: 12px;
+}
+.input-topBar {
+	@apply border  rounded h-7 w-[120px] flex justify-center border-none text-center text-xs text-gray-500 m-2;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
