@@ -5,13 +5,6 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 
 <template>
 	<div>
-		<div class="flex justify-center font-semibold flex-grow text-center">
-			<img
-				class="w-[125px] h-[125px]"
-				:src="foodPlaning"
-				alt="Food Planning Logo"
-			/>
-		</div>
 		<div class="absolute top-3 right-3">
 			<nuxt-link to="/">
 				<Button
@@ -24,6 +17,13 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 			</nuxt-link>
 		</div>
 
-		<div class="flex justify-center"><RecipeSearchForm /></div>
+		<div class="flex flex-col items-center justify-center min-h-screen gap-8">
+			<img
+				class="w-[125px] h-[125px]"
+				:src="foodPlaning"
+				alt="Food Planning Logo"
+			/>
+			<RecipeSearchForm />
+		</div>
 	</div>
 </template>

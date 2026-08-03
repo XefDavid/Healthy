@@ -4,14 +4,7 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 </script>
 
 <template>
-	<div class="flex items-center justify-between">
-		<div class="flex justify-center font-semibold flex-grow text-center">
-			<img
-				class="w-[125px] h-[125px]"
-				:src="foodPlaning"
-				alt="Food Planning Logo"
-			/>
-		</div>
+	<div>
 		<div class="absolute top-3 right-3">
 			<nuxt-link to="/">
 				<Button
@@ -23,9 +16,14 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 				/>
 			</nuxt-link>
 		</div>
-	</div>
 
-	<div class="mt-[-20px]">
-		<NutritionSearchForm />
+		<div class="flex flex-col items-center justify-center min-h-screen gap-8">
+			<img
+				class="w-[125px] h-[125px]"
+				:src="foodPlaning"
+				alt="Food Planning Logo"
+			/>
+			<NutritionSearchForm />
+		</div>
 	</div>
 </template>

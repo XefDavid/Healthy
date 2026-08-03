@@ -34,10 +34,10 @@ const clearPalceHolder = () => {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center gap-4">
+	<div class="flex flex-col justify-center gap-6">
 		<div>
 			<h1
-				class="text-gray-900 text-center text-5xl font-bold leading-none mb-4"
+				class="text-lime-600 text-center text-4xl font-medium leading-none mb-4"
 			>
 				Web recipe finder
 			</h1>

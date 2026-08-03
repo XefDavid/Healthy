@@ -96,10 +96,10 @@ const redirectToResults = () => {
 };
 </script>
 <template>
-	<div class="flex flex-col justify-between items-center">
+	<div class="flex flex-col justify-center items-center gap-6">
 		<div class="w-[2/3]">
 			<h1
-				class="text-gray-900 text-center text-4xl font-bold leading-none w-full"
+				class="text-lime-600 text-center text-4xl font-medium leading-none w-full"
 			>
 				Nutritional Lookup by ingredients
 			</h1>

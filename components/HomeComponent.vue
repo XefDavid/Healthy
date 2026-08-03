@@ -6,7 +6,7 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 </script>
 
 <template>
-	<div class="flex flex-col items-center pt-2">
+	<div class="flex flex-col items-center justify-center min-h-screen gap-4">
 		<div class="flex justify-center font-semibold">
 			<img
 				class="w-[125px] h-[125px]"
@@ -14,7 +14,7 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 				alt="Food Planning Logo"
 			/>
 		</div>
-		<div class="flex justify-center pt-1">
+		<div class="flex justify-center">
 			<div class="flex flex-col w-[400px] h-[200px]">
 				<h1 class="flex justify-star font-medium text-lime-600 text-4xl">
 					Eat,
