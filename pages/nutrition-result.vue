@@ -3,7 +3,6 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useRuntimeConfig } from "#app"; // Para claves de API
 import foodPlaning from "~/assets/images/foodPlaning.webp";
-import noImage from "~/assets/images/no-image.webp";
 
 const loading = ref(false);
 const error = ref("");
@@ -48,7 +47,7 @@ const fetchNutrition = async () => {
 			}
 		}
 	} catch (err) {
-		error.value = err.message || "Unknown error.";
+		error.value = err instanceof Error ? err.message : "Unknown error.";
 		console.error(err);
 	} finally {
 		loading.value = false;
@@ -65,7 +64,7 @@ onMounted(() => {
 <template>
 	<div class="flex justify-center font-semibold flex-grow text-center">
 		<img
-			class="w-[250px] h-[250px]"
+			class="w-[125px] h-[125px]"
 			:src="foodPlaning"
 			alt="Food Planning Logo"
 		/>

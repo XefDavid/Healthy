@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import foodPlaning from "~/assets/images/foodPlaning.webp";
-import NutritionSearch from "./Nutrition-Search-Form.vue";
 import RecipeSearchForm from "./Recipe-Search-Form.vue";
 </script>
 
@@ -8,7 +7,7 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 	<div>
 		<div class="flex justify-center font-semibold flex-grow text-center">
 			<img
-				class="w-[250px] h-[250px]"
+				class="w-[125px] h-[125px]"
 				:src="foodPlaning"
 				alt="Food Planning Logo"
 			/>
@@ -28,4 +27,3 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 		<div class="flex justify-center"><RecipeSearchForm /></div>
 	</div>
 </template>
-s

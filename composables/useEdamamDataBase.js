@@ -8,8 +8,10 @@ export const useEdamamDataBase = () => {
 	const appKey = config.public.edamamDatabaseFoodAppKey;
 	const baseUrl = "https://api.edamam.com/api/food-database/v2";
 
+	/** @type {import("vue").Ref<any[] | null>} */
 	const foodData = ref(null);
 	const nutritionData = ref(null);
+	/** @type {import("vue").Ref<string | null>} */
 	const error = ref(null);
 
 	const searchFood = async (query) => {

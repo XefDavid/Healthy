@@ -5,7 +5,7 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 <template>
 	<div class="flex justify-center font-semibold flex-grow text-center">
 		<img
-			class="w-[250px] h-[250px]"
+			class="w-[125px] h-[125px]"
 			:src="foodPlaning"
 			alt="Food Planning Logo"
 		/>

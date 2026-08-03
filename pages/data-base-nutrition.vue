@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, watch, nextTick, onMounted } from "vue";
-import { useRouter, useRoute } from "#app";
+import { useRouter } from "#app";
 import foodPlaning from "~/assets/images/foodPlaning.webp";
 import { useEdamamDataBase } from "~/composables/useEdamamDataBase";
 import noImage from "~/assets/images/noImage.webp";
-import DataBaseResult from "./data-base-result.vue";
 
 const { foodData, nutritionData, error, searchFood, getNutritionData } =
 	useEdamamDataBase();
@@ -12,7 +11,6 @@ const query = ref("");
 const loading = ref(false);
 const imagesLoaded = ref(0);
 const router = useRouter();
-const route = useRoute();
 
 const onSearch = async () => {
 	if (query.value) {
@@ -24,7 +22,7 @@ const onSearch = async () => {
 	}
 };
 
-watch(imagesLoaded, (count) => {
+watch(imagesLoaded, () => {
 	loading.value = false;
 	imagesLoaded.value = 0;
 });
@@ -77,7 +75,7 @@ console.log("soy la food data", foodData);
 <template>
 	<div class="container mx-auto px-4 py-8">
 		<div class="m-4 flex items-center justify-center">
-			<img class="w-64 h-64" :src="foodPlaning" alt="Food Planning Logo" />
+			<img class="w-32 h-32" :src="foodPlaning" alt="Food Planning Logo" />
 			<div class="absolute top-3 right-3">
 				<nuxt-link to="/">
 					<Button
