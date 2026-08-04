@@ -7,12 +7,19 @@
 		"all": "Todos"
 	},
 	"home": {
-		"eat": "Come,",
-		"drink": "Bebe,",
-		"love": "¡ama!!",
+		"brandFood": "FOOD",
+		"brandPlanning": "PLANNING",
+		"brandTagline": "MODO SALUDABLE",
+		"eat": "Come.",
+		"drink": "Bebe.",
+		"love": "Ama.",
+		"subtitle": "Planifica tu alimentación de forma sencilla e inteligente.",
 		"recipeButton": "Buscador de recetas",
+		"recipeSubtitle": "Encuentra recetas saludables",
 		"nutritionButton": "Información nutricional",
-		"dataButton": "Información de datos"
+		"nutritionSubtitle": "Conoce los valores de los alimentos",
+		"dataButton": "Información de datos",
+		"dataSubtitle": "Estadísticas y seguimiento"
 	},
 	"recipeFinder": {
 		"title": "Buscador de recetas",

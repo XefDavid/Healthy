@@ -8,7 +8,9 @@ const cuisineType = useState("cuisineType");
 </script>
 
 <template>
-	<div class="mb-8 flex justify-between bg-lime-500 text-sm">
+	<div
+		class="mb-8 flex flex-wrap justify-center gap-y-1 bg-lime-500 text-sm rounded-lg px-2 py-1"
+	>
 		<input
 			type="text"
 			id="calories"

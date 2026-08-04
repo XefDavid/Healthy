@@ -2,7 +2,6 @@
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useRuntimeConfig } from "#app"; // Para claves de API
-import foodPlaning from "~/assets/images/foodPlaning.webp";
 
 const { t } = useI18n();
 const loading = ref(false);
@@ -18,7 +17,11 @@ const fetchNutrition = async () => {
 	const config = useRuntimeConfig();
 
 	try {
-		for (const ingredient of route.query.ingredients as string[]) {
+		const ingredients = Array.isArray(route.query.ingredients)
+			? route.query.ingredients
+			: [route.query.ingredients];
+
+		for (const ingredient of ingredients as string[]) {
 			const appId = config.public.edamamNutritionAppId;
 			const appKey = config.public.edamamNutritionAppKey;
 			const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(
@@ -63,13 +66,6 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="flex justify-center font-semibold flex-grow text-center">
-		<img
-			class="w-[125px] h-[125px]"
-			:src="foodPlaning"
-			alt="Food Planning Logo"
-		/>
-	</div>
 	<div class="absolute top-3 right-3">
 		<nuxt-link to="/">
 			<Button
@@ -82,39 +78,41 @@ onMounted(() => {
 		</nuxt-link>
 	</div>
 
-	<div class="flex flex-col items-center">
-		<div v-if="loading" class="text-lg text-gray-700">
+	<div class="flex flex-col items-center gap-8 px-4 py-16">
+		<AppLogo size="sm" />
+
+		<div v-if="loading" class="text-lg text-neutral-300">
 			{{ $t("common.loading") }}
 		</div>
-		<div v-if="error" class="text-red-500">{{ error }}</div>
+		<div v-if="error" class="text-red-500 text-center">{{ error }}</div>
 
-		<div v-if="nutritionData.length > 0" class="pb-8">
+		<div v-if="nutritionData.length > 0" class="w-full pb-8">
 			<h3
-				class="text-gray-900 text-center text-4xl font-extrabold leading-none w-full pb-4 mt-[-50px]"
+				class="text-white text-center text-3xl sm:text-4xl font-extrabold leading-none w-full pb-8"
 			>
 				{{ $t("nutritionResult.title") }}
 			</h3>
 
 			<ul
-				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl"
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
 			>
 				<li
 					v-for="(result, index) in nutritionData"
 					:key="index"
-					class="p-6 bg-white shadow-md rounded-xl hover:shadow-lg hover:scale-105 transition-transform duration-300"
+					class="p-6 bg-neutral-900/60 border border-neutral-800 rounded-xl hover:border-lime-500/40 transition duration-300"
 				>
-					<h1 class="text-xl font-bold text-gray-700 mb-2">
+					<h1 class="text-xl font-bold text-white mb-2">
 						{{ result.ingredient }}
 					</h1>
 
 					<div class="flex flex-col gap-3 text-left">
-						<div class="flex items-center text-gray-600">
+						<div class="flex items-center text-neutral-300">
 							<i class="fas fa-fire text-red-500 mr-2"></i>
 							<span class="font-semibold">{{ $t("nutritionResult.calories") }}</span>
 							<span class="ml-auto">{{ result.nutrients.calories }} kcal</span>
 						</div>
 
-						<div class="flex items-center text-gray-600">
+						<div class="flex items-center text-neutral-300">
 							<i class="fas fa-cloud text-blue-400 mr-2"></i>
 							<span class="font-semibold">{{ $t("nutritionResult.co2Emissions") }}</span>
 							<span class="ml-auto"
@@ -122,7 +120,7 @@ onMounted(() => {
 							>
 						</div>
 
-						<div class="flex items-center text-gray-600">
+						<div class="flex items-center text-neutral-300">
 							<i class="fas fa-leaf text-green-500 mr-2"></i>
 							<span class="font-semibold">{{ $t("nutritionResult.co2Class") }}</span>
 							<span class="ml-auto">{{
@@ -130,13 +128,13 @@ onMounted(() => {
 							}}</span>
 						</div>
 
-						<div class="flex items-center text-gray-600">
+						<div class="flex items-center text-neutral-300">
 							<i class="fas fa-weight text-yellow-500 mr-2"></i>
 							<span class="font-semibold">{{ $t("nutritionResult.totalWeight") }}</span>
 							<span class="ml-auto">{{ result.nutrients.totalWeight }} g</span>
 						</div>
 
-						<div class="flex items-center text-gray-600">
+						<div class="flex items-center text-neutral-300">
 							<i class="fas fa-utensils text-purple-500 mr-2"></i>
 							<span class="font-semibold">{{ $t("nutritionResult.dietLabels") }}</span>
 							<span class="ml-auto">{{

@@ -1,14 +1,8 @@
-<script setup lang="ts">
-import foodPlaning from "~/assets/images/foodPlaning.webp";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-	<div class="flex justify-center font-semibold flex-grow text-center">
-		<img
-			class="w-[125px] h-[125px]"
-			:src="foodPlaning"
-			alt="Food Planning Logo"
-		/>
+	<div class="flex justify-center pt-6">
+		<AppLogo size="sm" />
 	</div>
 	<div class="absolute top-3 right-3">
 		<nuxt-link to="/">

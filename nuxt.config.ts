@@ -33,7 +33,7 @@ export default defineNuxtConfig({
 
 	app: {
 		head: {
-			meta: [{ name: "color-scheme", content: "light" }],
+			meta: [{ name: "color-scheme", content: "dark" }],
 		},
 	},
 	runtimeConfig: {

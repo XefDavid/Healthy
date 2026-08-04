@@ -34,22 +34,20 @@ const clearPalceHolder = () => {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center gap-6">
+	<div class="flex w-full flex-col items-center justify-center gap-6 px-4">
 		<div>
 			<h1
-				class="text-lime-600 text-center text-4xl font-medium leading-none mb-4"
+				class="text-lime-400 text-center text-3xl sm:text-4xl font-medium leading-none mb-4"
 			>
 				{{ $t("recipeFinder.title") }}
 			</h1>
 		</div>
 
-		<div class="flex flex-col justify-center items-center w-[400px] gap-8">
-			<div
-				class="text-gray-900 text-sm font-normal leading-5 flex flex-col items-center"
-			>
-				<div class="flex gap-2">
+		<div class="flex w-full max-w-md flex-col items-center justify-center gap-8">
+			<div class="flex w-full flex-col items-center text-sm font-normal leading-5">
+				<div class="flex w-full flex-col gap-2 sm:flex-row">
 					<InputText
-						class="input w-full mb-2 text-center"
+						class="input w-full mb-2 sm:mb-0 text-center"
 						type="text"
 						v-model="query"
 						:placeholder="$t('recipeFinder.placeholder')"
@@ -62,7 +60,7 @@ const clearPalceHolder = () => {
 						raised
 						icon="pi pi-search"
 						icon-pos="left"
-						class="button-green w-40 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-none"
+						class="button-green w-full sm:w-40 shrink-0 disabled:!bg-neutral-800 disabled:!text-neutral-500 disabled:cursor-not-allowed disabled:border-none"
 						@click="submitSearch"
 						:disabled="!query"
 					/>

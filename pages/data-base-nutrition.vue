@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, nextTick, onMounted } from "vue";
 import { useRouter } from "#app";
-import foodPlaning from "~/assets/images/foodPlaning.webp";
 import { useEdamamDataBase } from "~/composables/useEdamamDataBase";
 import noImage from "~/assets/images/noImage.webp";
 import { useTranslateQuery } from "~/composables/useTranslateQuery";
@@ -83,102 +82,100 @@ console.log("soy la food data", foodData);
 </script>
 
 <template>
-	<div class="container mx-auto px-4 py-8">
-		<div class="absolute top-3 right-3">
-			<nuxt-link to="/">
-				<Button
-					:label="$t('common.back')"
-					severity="secondary"
-					text
-					icon="pi pi-undo"
-					class="button-gray w-full"
-				/>
-			</nuxt-link>
+	<div class="absolute top-3 right-3">
+		<nuxt-link to="/">
+			<Button
+				:label="$t('common.back')"
+				severity="secondary"
+				text
+				icon="pi pi-undo"
+				class="button-gray w-full"
+			/>
+		</nuxt-link>
+	</div>
+
+	<div class="flex min-h-screen flex-col items-center justify-center gap-8 px-4 py-16">
+		<AppLogo size="lg" />
+
+		<h1 class="text-lime-400 text-center text-3xl sm:text-4xl font-medium leading-none">
+			{{ $t("dataBase.title") }}
+		</h1>
+
+		<div class="flex w-full max-w-md flex-col sm:flex-row justify-center gap-4">
+			<input
+				type="text"
+				v-model="query"
+				:placeholder="$t('dataBase.placeholder')"
+				class="input w-full max-w-md text-center"
+			/>
+			<Button
+				:label="$t('common.search')"
+				icon="pi pi-search"
+				severity="success"
+				class="button-green w-full sm:w-32 shrink-0 disabled:!bg-neutral-800 disabled:!text-neutral-500 disabled:cursor-not-allowed disabled:border-none"
+				@click="onSearch"
+				:disabled="!query"
+			/>
 		</div>
 
-		<div class="flex flex-col items-center justify-center min-h-screen gap-8">
-			<img class="w-32 h-32" :src="foodPlaning" alt="Food Planning Logo" />
-
-			<h1 class="text-lime-600 text-center text-4xl font-medium leading-none">
-				{{ $t("dataBase.title") }}
+		<div
+			v-if="foodData && foodData.length > 0"
+			class="w-full max-w-[900px] flex flex-col mx-auto"
+		>
+			<h1 class="text-2xl sm:text-3xl font-bold text-center mb-6 text-white">
+				{{ $t("dataBase.resultsTitle") }}
 			</h1>
 
-			<div class="flex justify-center gap-4">
-				<input
-					type="text"
-					v-model="query"
-					:placeholder="$t('dataBase.placeholder')"
-					class="border border-gray-300 rounded-lg p-2 w-full max-w-md text-center"
-				/>
-				<Button
-					:label="$t('common.search')"
-					icon="pi pi-search"
-					severity="success"
-					class="button-green w-32 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-none"
-					@click="onSearch"
-					:disabled="!query"
-				/>
-			</div>
-
-			<div
-				v-if="foodData && foodData.length > 0"
-				class="w-[900px] flex flex-col mx-auto"
-			>
-				<h1 class="text-3xl font-bold text-center mb-6">
-					{{ $t("dataBase.resultsTitle") }}
-				</h1>
-
-				<div class="grid grid-cols-3 gap-8">
-					<div
-						v-for="(food, index) in foodData"
-						:key="index"
-						class="border rounded-lg shadow-lg bg-white p-4 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+				<div
+					v-for="(food, index) in foodData"
+					:key="index"
+					class="border border-neutral-800 rounded-lg bg-neutral-900/60 p-4 flex flex-col justify-between hover:border-lime-500/40 transition duration-300"
+				>
+					<button
+						@click="fetchNutritionalInfo(food.food)"
+						class="self-end text-neutral-400"
 					>
-						<button
-							@click="fetchNutritionalInfo(food.food)"
-							class="self-end text-gray-500"
-						>
-							<i class="pi pi-info-circle text-lg hover:text-lime-600"></i>
-						</button>
+						<i class="pi pi-info-circle text-lg hover:text-lime-400"></i>
+					</button>
 
-						<h2
-							class="text-lg font-semibold text-center mt-2 mb-4 overflow-hidden text-ellipsis whitespace-nowrap"
-						>
-							{{ food.food.label }}
-						</h2>
+					<h2
+						class="text-lg font-semibold text-center mt-2 mb-4 overflow-hidden text-ellipsis whitespace-nowrap text-white"
+					>
+						{{ food.food.label }}
+					</h2>
 
-						<div v-if="food.food.image">
-							<img
-								:src="food.food.image"
-								alt="Food Image"
-								class="w-full max-h-40 object-cover rounded-lg mb-4 border object-fit"
-							/>
-						</div>
-						<div v-else>
-							<img
-								:src="noImage"
-								alt="No Image"
-								class="w-full h-40 object-cover rounded-lg mb-4 border"
-							/>
-						</div>
-
-						<Button
-							:label="$t('dataBase.getInfo')"
-							severity="primary"
-							icon="pi pi-info-circle"
-							class="w-full mt-auto !bg-gray-200 !border-none hover:!bg-lime-600"
-							@click="fetchNutritionalInfo(food.food)"
+					<div v-if="food.food.image">
+						<img
+							:src="food.food.image"
+							alt="Food Image"
+							class="w-full max-h-40 object-cover rounded-lg mb-4 border border-neutral-800 object-fit"
 						/>
 					</div>
+					<div v-else>
+						<img
+							:src="noImage"
+							alt="No Image"
+							class="w-full h-40 object-cover rounded-lg mb-4 border border-neutral-800"
+						/>
+					</div>
+
+					<Button
+						:label="$t('dataBase.getInfo')"
+						severity="primary"
+						icon="pi pi-info-circle"
+						class="w-full mt-auto !bg-neutral-800 !text-white !border-none hover:!bg-lime-600 hover:!text-neutral-950"
+						@click="fetchNutritionalInfo(food.food)"
+					/>
 				</div>
 			</div>
-
-			<div v-else class="text-center text-gray-500">
-				<p>{{ $t("dataBase.noResults") }}</p>
-			</div>
-
-			<!-- Display errors -->
-			<p v-if="error" class="text-red-500 text-center mt-4">{{ error }}</p>
 		</div>
+
+		<div v-else class="text-center text-neutral-400">
+			<p>{{ $t("dataBase.noResults") }}</p>
+		</div>
+
+		<!-- Display errors -->
+		<p v-if="error" class="text-red-500 text-center mt-4">{{ error }}</p>
 	</div>
 </template>

@@ -1,61 +1,69 @@
 <script setup lang="ts">
-import Button from "primevue/button";
 import "primeicons/primeicons.css";
 
-import foodPlaning from "~/assets/images/foodPlaning.webp";
+const cards = [
+	{
+		to: "/recipe-finder",
+		icon: "pi pi-globe",
+		title: "home.recipeButton",
+		subtitle: "home.recipeSubtitle",
+	},
+	{
+		to: "/nutrition-finder",
+		icon: "pi pi-apple",
+		title: "home.nutritionButton",
+		subtitle: "home.nutritionSubtitle",
+	},
+	{
+		to: "/data-base-nutrition",
+		icon: "pi pi-chart-bar",
+		title: "home.dataButton",
+		subtitle: "home.dataSubtitle",
+	},
+];
 </script>
 
 <template>
-	<div class="flex flex-col items-center justify-center min-h-screen gap-4">
-		<div class="flex justify-center font-semibold">
-			<img
-				class="w-[125px] h-[125px]"
-				:src="foodPlaning"
-				alt="Food Planning Logo"
-			/>
+	<div
+		class="flex min-h-screen flex-col items-center justify-center gap-8 px-6 py-16 sm:gap-10"
+	>
+		<!-- Logo -->
+		<div class="flex flex-col items-center gap-2">
+			<AppLogo size="lg" />
+			<div class="mt-1 h-px w-8 bg-lime-500"></div>
 		</div>
-		<div class="flex justify-center">
-			<div class="flex flex-col w-[400px] h-[200px]">
-				<h1 class="flex justify-star font-medium text-lime-600 text-4xl">
-					{{ $t("home.eat") }}
-				</h1>
-				<h1 class="flex justify-center text-lime-600 font-medium text-3xl pl-3">
-					{{ $t("home.drink") }}
-				</h1>
-				<h1
-					class="flex justify-end text-lime-600 font-medium text-2xl pl-[60px]"
+
+		<!-- Heading -->
+		<div class="flex flex-col items-center text-center">
+			<h1 class="text-3xl font-bold leading-tight sm:text-4xl">
+				<span class="block text-white">{{ $t("home.eat") }}</span>
+				<span class="block text-white">{{ $t("home.drink") }}</span>
+				<span class="block text-lime-400">{{ $t("home.love") }}</span>
+			</h1>
+			<i class="pi pi-heart mt-2 text-sm text-lime-500"></i>
+			<p class="mt-4 max-w-xs text-sm text-neutral-400">
+				{{ $t("home.subtitle") }}
+			</p>
+		</div>
+
+		<!-- Cards -->
+		<div class="flex w-full max-w-sm flex-col gap-4">
+			<nuxt-link
+				v-for="card in cards"
+				:key="card.to"
+				:to="card.to"
+				class="flex items-center gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 transition duration-300 hover:border-lime-500/50 hover:bg-neutral-900"
+			>
+				<div
+					class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-lime-500/15 text-lime-400"
 				>
-					{{ $t("home.love") }}
-				</h1>
-			</div>
-		</div>
-		<div class="flex flex-row justify-between gap-3">
-			<nuxt-link to="/recipe-finder">
-				<Button
-					:label="$t('home.recipeButton')"
-					severity="secondary"
-					icon="pi pi-globe"
-					iconPos="left"
-					class="hover:!bg-lime-400 transition duration-300"
-				/>
-			</nuxt-link>
-			<nuxt-link to="/nutrition-finder">
-				<Button
-					:label="$t('home.nutritionButton')"
-					severity="secondary"
-					icon="pi pi-apple"
-					icon-pos="left"
-					class="hover:!bg-lime-400 transition duration-300"
-				/>
-			</nuxt-link>
-			<nuxt-link to="/data-base-nutrition">
-				<Button
-					:label="$t('home.dataButton')"
-					severity="secondary"
-					icon="pi pi-search"
-					icon-pos="left"
-					class="hover:!bg-lime-400 transition duration-300"
-				/>
+					<i :class="card.icon" class="text-xl"></i>
+				</div>
+				<div class="flex-1 text-left">
+					<p class="font-semibold text-white">{{ $t(card.title) }}</p>
+					<p class="text-sm text-neutral-400">{{ $t(card.subtitle) }}</p>
+				</div>
+				<i class="pi pi-chevron-right text-neutral-500"></i>
 			</nuxt-link>
 		</div>
 	</div>

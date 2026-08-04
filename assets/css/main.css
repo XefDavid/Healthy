@@ -4,11 +4,17 @@
 	@apply font-inter;
 }
 
+html,
+body,
+#__nuxt {
+	@apply min-h-full bg-neutral-950 text-white;
+}
+
 .input {
-	@apply flex h-8 px-3 py-2 justify-between items-center self-stretch rounded-md border border-gray-300 bg-white text-gray-900 text-sm font-normal min-w-[220px];
+	@apply flex h-8 px-3 py-2 justify-between items-center self-stretch rounded-md border border-neutral-700 !bg-neutral-900 !text-white placeholder:!text-neutral-500 text-sm font-normal min-w-[220px];
 }
 .button-gray {
-	@apply rounded-lg bg-gray-100 text-gray-700 hover:!bg-gray-100 hover:!text-gray-800 !h-8 !py-2 !px-3 !gap-1.5 !text-sm !font-medium !normal-case !font-sans !shadow-none;
+	@apply rounded-lg !bg-white/5 !text-white hover:!bg-white/10 hover:!text-white !h-8 !py-2 !px-3 !gap-1.5 !text-sm !font-medium !normal-case !font-sans !shadow-none border border-neutral-700;
 }
 
 .button-green {
@@ -19,7 +25,7 @@
 	font-size: 12px;
 }
 .input-topBar {
-	@apply border  rounded h-7 w-[120px] flex justify-center border-none text-center text-xs text-gray-500 m-2;
+	@apply border  rounded h-7 w-[120px] flex justify-center border-none text-center text-xs text-gray-700 m-2 bg-white/90;
 }
 
 @tailwind base;

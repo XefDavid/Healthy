@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import NutritionSearchForm from "~/components/Nutrition-Search-Form.vue";
-import foodPlaning from "~/assets/images/foodPlaning.webp";
 </script>
 
 <template>
@@ -8,7 +7,7 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 		<div class="absolute top-3 right-3">
 			<nuxt-link to="/">
 				<Button
-					label="Back"
+					:label="$t('common.back')"
 					severity="secondary"
 					text
 					icon="pi pi-undo"
@@ -17,12 +16,10 @@ import foodPlaning from "~/assets/images/foodPlaning.webp";
 			</nuxt-link>
 		</div>
 
-		<div class="flex flex-col items-center justify-center min-h-screen gap-8">
-			<img
-				class="w-[125px] h-[125px]"
-				:src="foodPlaning"
-				alt="Food Planning Logo"
-			/>
+		<div
+			class="flex min-h-screen flex-col items-center justify-center gap-8 px-4 py-16"
+		>
+			<AppLogo size="lg" />
 			<NutritionSearchForm />
 		</div>
 	</div>

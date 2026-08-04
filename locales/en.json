@@ -7,12 +7,19 @@
 		"all": "All"
 	},
 	"home": {
-		"eat": "Eat,",
-		"drink": "Drink,",
-		"love": "love!!",
+		"brandFood": "FOOD",
+		"brandPlanning": "PLANNING",
+		"brandTagline": "HEALTHY MODE",
+		"eat": "Eat.",
+		"drink": "Drink.",
+		"love": "Love.",
+		"subtitle": "Plan your meals simply and smartly.",
 		"recipeButton": "Web finder recipe",
+		"recipeSubtitle": "Find healthy recipes",
 		"nutritionButton": "Nutritional information",
-		"dataButton": "Data information"
+		"nutritionSubtitle": "Learn the nutrition values of foods",
+		"dataButton": "Data information",
+		"dataSubtitle": "Stats and tracking"
 	},
 	"recipeFinder": {
 		"title": "Web recipe finder",

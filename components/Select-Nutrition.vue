@@ -39,51 +39,35 @@ const measures = computed(() => [
 </script>
 <template>
 	<div
-		class="mb-8 flex justify-between items-center bg-lime-500 text-sm p-1 rounded-lg gap-2"
+		class="mb-8 flex flex-wrap justify-center items-center bg-lime-500 text-sm p-2 rounded-lg gap-2"
 	>
 		<!-- Input para la cantidad -->
-		<div>
-			<InputText
-				type="text"
-				:placeholder="$t('selectNutrition.quantity')"
-				:value="props.selectedQuantity"
-				@input="$emit('update:selectedQuantity', $event.target.value)"
-				class="w-[100px] h-[34px] text-center border border-gray-300 rounded-lg ml-1"
-			/>
-		</div>
+		<InputText
+			type="text"
+			:placeholder="$t('selectNutrition.quantity')"
+			:value="props.selectedQuantity"
+			@input="$emit('update:selectedQuantity', $event.target.value)"
+			class="w-[100px] h-[34px] text-center border border-neutral-700 rounded-lg"
+		/>
 
 		<!-- Dropdown para seleccionar la medida -->
-
 		<Dropdown
 			:model-value="props.selectedMeasure"
 			:options="measures"
 			optionLabel="label"
 			optionValue="value"
 			:placeholder="$t('selectNutrition.measure')"
-			class="w-[150px] h-[34px] border-gray-300 rounded-lg py-2 px-3 shadow-sm focus:bg-lime-100 flex items-center"
+			class="w-[150px] h-[34px] border-neutral-700 rounded-lg py-2 px-3 shadow-sm flex items-center"
 			@update:model-value="$emit('update:selectedMeasure', $event)"
 		/>
 
 		<!-- Input para el nombre del ingrediente -->
-
 		<InputText
 			type="text"
 			:placeholder="$t('selectNutrition.ingredient')"
 			:value="props.selectedIngredient"
 			@input="$emit('update:selectedIngredient', $event.target.value)"
-			class="w-[140px] border border-gray-300 rounded-lg text-center mr-1 h-[34px]"
+			class="w-[140px] border border-neutral-700 rounded-lg text-center h-[34px]"
 		/>
 	</div>
 </template>
-
-<style scoped>
-.input-topBar {
-	width: 80px;
-	padding: 0.5rem;
-	border-radius: 0.25rem;
-	border: 1px solid #ccc;
-}
-.measures {
-	width: 100px;
-}
-</style>

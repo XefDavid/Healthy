@@ -11,7 +11,6 @@ const { translateToEnglish } = useTranslateQuery();
 const ingredientsList = ref<string[]>([]);
 const loading = ref(false);
 const error = ref("");
-const nutritionData = ref<any[]>([]);
 
 const selectedQuantity = ref("");
 const selectedMeasure = ref("");
@@ -47,51 +46,6 @@ const removeIngredient = (index: number) => {
 	ingredientsList.value.splice(index, 1);
 };
 
-// Función para obtener la información nutricional de la API
-// const fetchNutrition = async () => {
-// 	if (!hasIngredients.value) {
-// 		error.value = "Please add at least one ingredient.";
-// 		return;
-// 	}
-
-// 	loading.value = true;
-// 	error.value = "";
-// 	nutritionData.value = [];
-
-// 	try {
-// 		for (const ingredient of ingredientsList.value) {
-// 			const appId = "f77623ac";
-// 			const appKey = "ec3e7fe31ca7638903d7813203629cbd";
-// 			const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(
-// 				ingredient
-// 			)}`;
-
-// 			const response = await fetch(url);
-
-// 			if (!response.ok) {
-// 				const errorMessage = await response.text();
-// 				throw new Error(`API query error: ${errorMessage}`);
-// 			}
-
-// 			const data = await response.json();
-
-// 			if (data.totalNutrients && Object.keys(data.totalNutrients).length > 0) {
-// 				nutritionData.value.push({
-// 					ingredient,
-// 					nutrients: data,
-// 				});
-// 			} else {
-// 				throw new Error(`No nutritional data found for ${ingredient}.`);
-// 			}
-// 		}
-// 	} catch (err) {
-// 		error.value = err.message || "Unknown error.";
-// 		console.error(err);
-// 	} finally {
-// 		loading.value = false;
-// 	}
-// };
-
 const redirectToResults = () => {
 	if (hasIngredients.value) {
 		router.push({
@@ -102,14 +56,14 @@ const redirectToResults = () => {
 };
 </script>
 <template>
-	<div class="flex flex-col justify-center items-center gap-6">
-		<div class="w-[2/3]">
+	<div class="flex w-full flex-col items-center justify-center gap-6 px-4">
+		<div class="w-full max-w-xl">
 			<h1
-				class="text-lime-600 text-center text-4xl font-medium leading-none w-full"
+				class="text-lime-400 text-center text-3xl sm:text-4xl font-medium leading-none w-full"
 			>
 				{{ $t("nutritionFinder.title") }}
 			</h1>
-			<div class="pt-4 flex flex-row gap-2 justify-center">
+			<div class="pt-4 flex flex-col sm:flex-row gap-2 justify-center items-center">
 				<SelectNutrition
 					v-model:selectedQuantity="selectedQuantity"
 					v-model:selectedMeasure="selectedMeasure"
@@ -117,7 +71,7 @@ const redirectToResults = () => {
 				/>
 				<button
 					@click="addIngredient"
-					class="text-sm h-[44px] bg-gray-100 rounded-lg hover:bg-lime-500 w-[130px]"
+					class="text-sm h-[44px] w-full sm:w-[130px] shrink-0 bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
 					:disabled="!isIngredientValid"
 				>
 					{{ $t("common.addIngredient") }}
@@ -125,26 +79,28 @@ const redirectToResults = () => {
 			</div>
 		</div>
 
-		<div v-if="error">{{ error }}</div>
+		<div v-if="error" class="text-red-500 text-sm">{{ error }}</div>
 
-		<div class="flex flex-row items-center gap-2">
+		<div class="flex flex-col sm:flex-row items-center gap-2">
 			<div
 				v-if="hasIngredients"
-				class="border border-darkGray text-center rounded-lg"
+				class="border border-neutral-700 bg-neutral-900/60 text-center rounded-lg"
 			>
-				<h3 class="font-bold p-2">{{ $t("nutritionFinder.yourIngredients") }}</h3>
-				<ul class="w-[300px] flex flex-col">
+				<h3 class="font-bold p-2 text-white">
+					{{ $t("nutritionFinder.yourIngredients") }}
+				</h3>
+				<ul class="w-full max-w-xs flex flex-col">
 					<li
 						v-for="(ingredient, index) in ingredientsList"
 						:key="index"
 						class="flex justify-between items-center p-1"
 					>
-						<span class="pl-2">{{ ingredient }}</span>
+						<span class="pl-2 text-neutral-200">{{ ingredient }}</span>
 						<button
 							@click="removeIngredient(index)"
-							class="text-slate-500 hover:text-red-700 pr-2"
+							class="text-neutral-500 hover:text-red-500 pr-2"
 						>
-							<i class="pi pi-trash hover:text-orange-900"></i>
+							<i class="pi pi-trash"></i>
 						</button>
 					</li>
 				</ul>
@@ -152,25 +108,11 @@ const redirectToResults = () => {
 			<button
 				v-if="hasIngredients"
 				@click="redirectToResults"
-				class="text-sm h-[44px] bg-gray-100 rounded-lg hover:bg-lime-500 w-[130px]"
+				class="text-sm h-[44px] w-full sm:w-[160px] bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40"
 				:disabled="loading || !hasIngredients"
 			>
-				Get Nutritional Information
+				{{ $t("nutritionFinder.getInfo") }}
 			</button>
-		</div>
-
-		<div v-if="loading">Loading...</div>
-
-		<div v-if="nutritionData.length > 0">
-			<h3>Nutritional Results:</h3>
-			<ul>
-				<li v-for="(result, index) in nutritionData" :key="index">
-					<h4>Ingredient: {{ result.ingredient }}</h4>
-					<div>
-						<p>Calories: {{ result.nutrients.calories }} kcal</p>
-					</div>
-				</li>
-			</ul>
 		</div>
 	</div>
 </template>

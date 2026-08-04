@@ -12,7 +12,7 @@ const foodId = ref(route.query.foodId); // Obtener el foodId de los query params
 // desde la búsqueda anterior a través de los query params.
 const foodLabel = ref(route.query.label as string);
 const foodImage = ref((route.query.image as string) || "");
-const foodDetails = ref(null);
+const foodDetails = ref<any>(null);
 const error = ref("");
 
 const { getNutritionData } = useEdamamDataBase();
@@ -48,52 +48,58 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="container mx-auto px-4 py-8">
-		<div class="flex justify-between items-center">
-			<h1 class="text-3xl font-bold">{{ $t("dataBaseResult.title") }}</h1>
-			<nuxt-link to="/" class="text-blue-500">{{
+	<div class="container mx-auto max-w-2xl px-4 pt-16 pb-8">
+		<div class="flex justify-between items-center gap-4">
+			<h1 class="text-2xl sm:text-3xl font-bold text-white">
+				{{ $t("dataBaseResult.title") }}
+			</h1>
+			<nuxt-link to="/" class="text-lime-400 hover:text-lime-300 shrink-0">{{
 				$t("dataBaseResult.backToSearch")
 			}}</nuxt-link>
 		</div>
 
 		<div v-if="foodDetails">
 			<!-- Mostrar los detalles del alimento -->
-			<h2 class="text-2xl font-semibold">{{ foodDetails?.label }}</h2>
+			<h2 class="text-xl sm:text-2xl font-semibold text-white mt-6">
+				{{ foodDetails?.label }}
+			</h2>
 			<div v-if="foodDetails?.image">
 				<img
 					:src="foodDetails?.image"
 					alt="Food Image"
-					class="w-full max-h-40 object-cover rounded-lg mt-4"
+					class="w-full max-h-60 object-cover rounded-lg mt-4 border border-neutral-800"
 				/>
 			</div>
 			<div v-else>
-				<p>{{ $t("dataBaseResult.noImage") }}</p>
+				<p class="text-neutral-400 mt-2">{{ $t("dataBaseResult.noImage") }}</p>
 			</div>
 
-			<div class="mt-6">
-				<h3 class="text-xl font-medium">
+			<div
+				class="mt-6 rounded-lg border border-neutral-800 bg-neutral-900/60 p-6"
+			>
+				<h3 class="text-xl font-medium text-white">
 					{{ $t("dataBaseResult.title") }}
-					<span class="text-sm font-normal text-gray-500">{{
+					<span class="text-sm font-normal text-neutral-400">{{
 						$t("dataBaseResult.per100g")
 					}}</span>
 				</h3>
-				<ul class="list-none">
+				<ul class="list-none mt-2 text-neutral-300">
 					<li>
-						<strong>{{ $t("nutritionResult.calories") }}</strong>
+						<strong class="text-white">{{ $t("nutritionResult.calories") }}</strong>
 						{{ foodDetails?.calories }}
 					</li>
 					<li>
-						<strong>{{ $t("dataBaseResult.fat") }}</strong>
+						<strong class="text-white">{{ $t("dataBaseResult.fat") }}</strong>
 						{{ foodDetails?.totalNutrients.FAT?.quantity }}
 						{{ foodDetails?.totalNutrients.FAT?.unit }}
 					</li>
 					<li>
-						<strong>{{ $t("dataBaseResult.carbs") }}</strong>
+						<strong class="text-white">{{ $t("dataBaseResult.carbs") }}</strong>
 						{{ foodDetails?.totalNutrients.CHOCDF?.quantity }}
 						{{ foodDetails?.totalNutrients.CHOCDF?.unit }}
 					</li>
 					<li>
-						<strong>{{ $t("dataBaseResult.protein") }}</strong>
+						<strong class="text-white">{{ $t("dataBaseResult.protein") }}</strong>
 						{{ foodDetails?.totalNutrients.PROCNT?.quantity }}
 						{{ foodDetails?.totalNutrients.PROCNT?.unit }}
 					</li>

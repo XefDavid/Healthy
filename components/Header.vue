@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import foodPlaning from "~/assets/images/foodPlaning.webp";
 import RecipeSearchForm from "./Recipe-Search-Form.vue";
 </script>
 
@@ -17,12 +16,10 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 			</nuxt-link>
 		</div>
 
-		<div class="flex flex-col items-center justify-center min-h-screen gap-8">
-			<img
-				class="w-[125px] h-[125px]"
-				:src="foodPlaning"
-				alt="Food Planning Logo"
-			/>
+		<div
+			class="flex min-h-screen flex-col items-center justify-center gap-8 px-4 py-16"
+		>
+			<AppLogo size="lg" />
 			<RecipeSearchForm />
 		</div>
 	</div>
