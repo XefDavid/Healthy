@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import { useRuntimeConfig } from "#app"; // Para claves de API
 import foodPlaning from "~/assets/images/foodPlaning.webp";
 
+const { t } = useI18n();
 const loading = ref(false);
 const error = ref("");
 const nutritionData = ref<any[]>([]);
@@ -47,7 +48,7 @@ const fetchNutrition = async () => {
 			}
 		}
 	} catch (err) {
-		error.value = err instanceof Error ? err.message : "Unknown error.";
+		error.value = err instanceof Error ? err.message : t("nutritionResult.unknownError");
 		console.error(err);
 	} finally {
 		loading.value = false;
@@ -72,7 +73,7 @@ onMounted(() => {
 	<div class="absolute top-3 right-3">
 		<nuxt-link to="/">
 			<Button
-				label="Back"
+				:label="$t('common.back')"
 				severity="secondary"
 				text
 				icon="pi pi-undo"
@@ -82,14 +83,16 @@ onMounted(() => {
 	</div>
 
 	<div class="flex flex-col items-center">
-		<div v-if="loading" class="text-lg text-gray-700">Loading...</div>
+		<div v-if="loading" class="text-lg text-gray-700">
+			{{ $t("common.loading") }}
+		</div>
 		<div v-if="error" class="text-red-500">{{ error }}</div>
 
 		<div v-if="nutritionData.length > 0" class="pb-8">
 			<h3
 				class="text-gray-900 text-center text-4xl font-extrabold leading-none w-full pb-4 mt-[-50px]"
 			>
-				Your Nutritional Results
+				{{ $t("nutritionResult.title") }}
 			</h3>
 
 			<ul
@@ -107,13 +110,13 @@ onMounted(() => {
 					<div class="flex flex-col gap-3 text-left">
 						<div class="flex items-center text-gray-600">
 							<i class="fas fa-fire text-red-500 mr-2"></i>
-							<span class="font-semibold">Calories:</span>
+							<span class="font-semibold">{{ $t("nutritionResult.calories") }}</span>
 							<span class="ml-auto">{{ result.nutrients.calories }} kcal</span>
 						</div>
 
 						<div class="flex items-center text-gray-600">
 							<i class="fas fa-cloud text-blue-400 mr-2"></i>
-							<span class="font-semibold">Total CO2 Emissions:</span>
+							<span class="font-semibold">{{ $t("nutritionResult.co2Emissions") }}</span>
 							<span class="ml-auto"
 								>{{ result.nutrients.totalCO2Emissions }} g</span
 							>
@@ -121,7 +124,7 @@ onMounted(() => {
 
 						<div class="flex items-center text-gray-600">
 							<i class="fas fa-leaf text-green-500 mr-2"></i>
-							<span class="font-semibold">CO2 Emission Class:</span>
+							<span class="font-semibold">{{ $t("nutritionResult.co2Class") }}</span>
 							<span class="ml-auto">{{
 								result.nutrients.co2EmissionsClass
 							}}</span>
@@ -129,15 +132,15 @@ onMounted(() => {
 
 						<div class="flex items-center text-gray-600">
 							<i class="fas fa-weight text-yellow-500 mr-2"></i>
-							<span class="font-semibold">Total Weight:</span>
+							<span class="font-semibold">{{ $t("nutritionResult.totalWeight") }}</span>
 							<span class="ml-auto">{{ result.nutrients.totalWeight }} g</span>
 						</div>
 
 						<div class="flex items-center text-gray-600">
 							<i class="fas fa-utensils text-purple-500 mr-2"></i>
-							<span class="font-semibold">Diet Labels:</span>
+							<span class="font-semibold">{{ $t("nutritionResult.dietLabels") }}</span>
 							<span class="ml-auto">{{
-								result.nutrients.dietLabels || "N/A"
+								result.nutrients.dietLabels || $t("nutritionResult.notAvailable")
 							}}</span>
 						</div>
 					</div>

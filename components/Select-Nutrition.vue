@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, computed } from "vue";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
 
@@ -17,23 +17,25 @@ const emits = defineEmits([
 	"update:selectedIngredient",
 ]);
 
+const { t } = useI18n();
+
 // Opciones para las medidas
-const measures = [
-	{ label: "Ounce", value: "ounce" },
-	{ label: "Gram", value: "gram" },
-	{ label: "Pound", value: "pound" },
-	{ label: "Kilogram", value: "kilogram" },
-	{ label: "Pinch", value: "pinch" },
-	{ label: "Liter", value: "liter" },
-	{ label: "Gallon", value: "gallon" },
-	{ label: "Pint", value: "pint" },
-	{ label: "Quart", value: "quart" },
-	{ label: "Milliliter", value: "milliliter" },
-	{ label: "Drop", value: "drop" },
-	{ label: "Cup", value: "cup" },
-	{ label: "Tablespoon", value: "tablespoon" },
-	{ label: "Teaspoon", value: "teaspoon" },
-];
+const measures = computed(() => [
+	{ label: t("selectNutrition.measures.ounce"), value: "ounce" },
+	{ label: t("selectNutrition.measures.gram"), value: "gram" },
+	{ label: t("selectNutrition.measures.pound"), value: "pound" },
+	{ label: t("selectNutrition.measures.kilogram"), value: "kilogram" },
+	{ label: t("selectNutrition.measures.pinch"), value: "pinch" },
+	{ label: t("selectNutrition.measures.liter"), value: "liter" },
+	{ label: t("selectNutrition.measures.gallon"), value: "gallon" },
+	{ label: t("selectNutrition.measures.pint"), value: "pint" },
+	{ label: t("selectNutrition.measures.quart"), value: "quart" },
+	{ label: t("selectNutrition.measures.milliliter"), value: "milliliter" },
+	{ label: t("selectNutrition.measures.drop"), value: "drop" },
+	{ label: t("selectNutrition.measures.cup"), value: "cup" },
+	{ label: t("selectNutrition.measures.tablespoon"), value: "tablespoon" },
+	{ label: t("selectNutrition.measures.teaspoon"), value: "teaspoon" },
+]);
 </script>
 <template>
 	<div
@@ -43,7 +45,7 @@ const measures = [
 		<div>
 			<InputText
 				type="text"
-				:placeholder="'Quantity'"
+				:placeholder="$t('selectNutrition.quantity')"
 				:value="props.selectedQuantity"
 				@input="$emit('update:selectedQuantity', $event.target.value)"
 				class="w-[100px] h-[34px] text-center border border-gray-300 rounded-lg ml-1"
@@ -57,7 +59,7 @@ const measures = [
 			:options="measures"
 			optionLabel="label"
 			optionValue="value"
-			placeholder="Measure"
+			:placeholder="$t('selectNutrition.measure')"
 			class="w-[150px] h-[34px] border-gray-300 rounded-lg py-2 px-3 shadow-sm focus:bg-lime-100 flex items-center"
 			@update:model-value="$emit('update:selectedMeasure', $event)"
 		/>
@@ -66,7 +68,7 @@ const measures = [
 
 		<InputText
 			type="text"
-			:placeholder="'Ingredient'"
+			:placeholder="$t('selectNutrition.ingredient')"
 			:value="props.selectedIngredient"
 			@input="$emit('update:selectedIngredient', $event.target.value)"
 			class="w-[140px] border border-gray-300 rounded-lg text-center mr-1 h-[34px]"

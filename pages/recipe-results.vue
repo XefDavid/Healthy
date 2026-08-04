@@ -4,11 +4,13 @@ import { useRoute, useRouter } from "vue-router";
 import { useEdamam } from "~/composables/useEdamam";
 import TopBar from "~/components/top-bar.vue";
 import foodPlaning from "~/assets/images/foodPlaning.webp";
+import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
 import { useState } from "nuxt/app";
 
 const route = useRoute();
 const router = useRouter();
+const { translateToSpanish } = useTranslateQuery();
 
 const { recipes, loading, error, getRecipes } = useEdamam();
 const originalRecipes = ref([]);
@@ -39,6 +41,13 @@ const loadRecipes = async () => {
 	await getRecipes(searchCriteria);
 
 	originalRecipes.value = [...recipes.value];
+
+	await Promise.all(
+		originalRecipes.value.map(async (recipe: any) => {
+			recipe.label = await translateToSpanish(recipe.label);
+		})
+	);
+
 	filteredRecipes.value = [...originalRecipes.value];
 };
 
@@ -125,19 +134,20 @@ console;
 
 		<div class="flex flex-col gap-4 justify-center">
 			<div v-if="loading" class="text-center">
-				<p>Loading recipes...</p>
+				<p>{{ $t("recipeResults.loading") }}</p>
 			</div>
 			<div v-if="error" class="text-center text-red-500">
 				<p>{{ error }}</p>
 			</div>
 			<div v-if="!loading && filteredRecipes.length === 0" class="text-center">
-				<p>No recipes found.</p>
+				<p>{{ $t("recipeResults.noResults") }}</p>
 			</div>
 			<div class="flex justify-center">
-				<h1>
-					We've Found a Total of
-					<strong>{{ filteredRecipes.length }}</strong> Recipes!
-				</h1>
+				<i18n-t keypath="recipeResults.foundTotal" tag="h1">
+					<template #count>
+						<strong>{{ filteredRecipes.length }}</strong>
+					</template>
+				</i18n-t>
 			</div>
 			<div class="flex justify-center">
 				<div

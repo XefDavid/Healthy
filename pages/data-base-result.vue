@@ -2,9 +2,16 @@
 import { useRoute } from "vue-router"; // Importar useRoute de vue-router
 import { ref, onMounted } from "vue";
 import { useEdamamDataBase } from "~/composables/useEdamamDataBase";
+import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
+const { t } = useI18n();
+const { translateToSpanish } = useTranslateQuery();
 const route = useRoute(); // Obtener parámetros de la URL
-const foodId = ref(route.params.foodId); // Obtener el foodId de los parámetros de la ruta
+const foodId = ref(route.query.foodId); // Obtener el foodId de los query params
+// El endpoint de nutrientes no devuelve label/image, así que se pasan
+// desde la búsqueda anterior a través de los query params.
+const foodLabel = ref(route.query.label as string);
+const foodImage = ref((route.query.image as string) || "");
 const foodDetails = ref(null);
 const error = ref("");
 
@@ -14,8 +21,8 @@ const { getNutritionData } = useEdamamDataBase();
 const fetchFoodDetails = async () => {
 	const ingredients = [
 		{
-			quantity: 1,
-			measureURI: "http://www.edamam.com/ontologies/edamam.owl#Serving",
+			quantity: 100,
+			measureURI: "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
 			foodId: foodId.value,
 		},
 	];
@@ -23,12 +30,14 @@ const fetchFoodDetails = async () => {
 	try {
 		const response = await getNutritionData(ingredients);
 		if (response) {
+			response.label = await translateToSpanish(foodLabel.value);
+			response.image = foodImage.value;
 			foodDetails.value = response;
 		} else {
-			error.value = "No nutritional data found.";
+			error.value = t("dataBaseResult.noData");
 		}
 	} catch (err) {
-		error.value = "Error fetching data.";
+		error.value = t("dataBaseResult.fetchError");
 		console.error("Error fetching data:", err);
 	}
 };
@@ -41,8 +50,10 @@ onMounted(() => {
 <template>
 	<div class="container mx-auto px-4 py-8">
 		<div class="flex justify-between items-center">
-			<h1 class="text-3xl font-bold">Nutritional Information</h1>
-			<nuxt-link to="/" class="text-blue-500">Back to Search</nuxt-link>
+			<h1 class="text-3xl font-bold">{{ $t("dataBaseResult.title") }}</h1>
+			<nuxt-link to="/" class="text-blue-500">{{
+				$t("dataBaseResult.backToSearch")
+			}}</nuxt-link>
 		</div>
 
 		<div v-if="foodDetails">
@@ -56,25 +67,33 @@ onMounted(() => {
 				/>
 			</div>
 			<div v-else>
-				<p>No image available.</p>
+				<p>{{ $t("dataBaseResult.noImage") }}</p>
 			</div>
 
 			<div class="mt-6">
-				<h3 class="text-xl font-medium">Nutritional Information</h3>
+				<h3 class="text-xl font-medium">
+					{{ $t("dataBaseResult.title") }}
+					<span class="text-sm font-normal text-gray-500">{{
+						$t("dataBaseResult.per100g")
+					}}</span>
+				</h3>
 				<ul class="list-none">
-					<li><strong>Calories:</strong> {{ foodDetails?.calories }}</li>
 					<li>
-						<strong>Fat:</strong>
+						<strong>{{ $t("nutritionResult.calories") }}</strong>
+						{{ foodDetails?.calories }}
+					</li>
+					<li>
+						<strong>{{ $t("dataBaseResult.fat") }}</strong>
 						{{ foodDetails?.totalNutrients.FAT?.quantity }}
 						{{ foodDetails?.totalNutrients.FAT?.unit }}
 					</li>
 					<li>
-						<strong>Carbs:</strong>
+						<strong>{{ $t("dataBaseResult.carbs") }}</strong>
 						{{ foodDetails?.totalNutrients.CHOCDF?.quantity }}
 						{{ foodDetails?.totalNutrients.CHOCDF?.unit }}
 					</li>
 					<li>
-						<strong>Protein:</strong>
+						<strong>{{ $t("dataBaseResult.protein") }}</strong>
 						{{ foodDetails?.totalNutrients.PROCNT?.quantity }}
 						{{ foodDetails?.totalNutrients.PROCNT?.unit }}
 					</li>

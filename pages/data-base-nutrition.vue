@@ -4,7 +4,10 @@ import { useRouter } from "#app";
 import foodPlaning from "~/assets/images/foodPlaning.webp";
 import { useEdamamDataBase } from "~/composables/useEdamamDataBase";
 import noImage from "~/assets/images/noImage.webp";
+import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
+const { t } = useI18n();
+const { translateToEnglish, translateToSpanish } = useTranslateQuery();
 const { foodData, nutritionData, error, searchFood, getNutritionData } =
 	useEdamamDataBase();
 const query = ref("");
@@ -15,7 +18,17 @@ const router = useRouter();
 const onSearch = async () => {
 	if (query.value) {
 		loading.value = true;
-		await searchFood(query.value);
+		const translatedQuery = await translateToEnglish(query.value);
+		await searchFood(translatedQuery);
+
+		if (foodData.value) {
+			await Promise.all(
+				foodData.value.map(async (hint: any) => {
+					hint.food.label = await translateToSpanish(hint.food.label);
+				})
+			);
+		}
+
 		await nextTick();
 
 		imagesLoaded.value = 0;
@@ -32,13 +45,14 @@ onMounted(() => {
 	imagesLoaded.value = 0;
 });
 
-const fetchNutritionalInfo = async (foodId: any) => {
+const fetchNutritionalInfo = async (food: any) => {
+	const foodId = food.foodId;
 	console.log("Fetching nutritional info for food ID:", foodId); // Log antes de la llamada a la API
 
 	const ingredients = [
 		{
-			quantity: 1,
-			measureURI: "http://www.edamam.com/ontologies/edamam.owl#Serving",
+			quantity: 100,
+			measureURI: "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
 			foodId: foodId,
 		},
 	];
@@ -51,20 +65,16 @@ const fetchNutritionalInfo = async (foodId: any) => {
 			nutritionData.value = nutritionResponse;
 			console.log("Nutrition data fetched:", nutritionData.value); // Log de los datos nutricionales
 
-			// Asegurarnos de que `router.push` se llama correctamente
-			console.log("Redirecting to /data-base-result with foodId:", foodId);
-
-			// Intentar redirigir con la ruta nombrada
-			router.push({ name: "data-base-result", params: { foodId: foodId } });
-
-			// También intentar una redirección directa con la URL para verificar si hay algún problema con el nombre de la ruta
-			// router.push(`/data-base-result/${foodId}`);
+			router.push({
+				path: "/data-base-result",
+				query: { foodId, label: food.label, image: food.image || "" },
+			});
 		} else {
-			error.value = "Failed to fetch nutritional info.";
+			error.value = t("dataBase.failedInfo");
 			console.log("Error: No nutrition data returned.");
 		}
 	} catch (err) {
-		error.value = "Failed to fetch nutritional info.";
+		error.value = t("dataBase.failedInfo");
 		console.error("API Error:", err); // Log de error en la API
 	}
 };
@@ -77,7 +87,7 @@ console.log("soy la food data", foodData);
 		<div class="absolute top-3 right-3">
 			<nuxt-link to="/">
 				<Button
-					label="Back"
+					:label="$t('common.back')"
 					severity="secondary"
 					text
 					icon="pi pi-undo"
@@ -90,21 +100,21 @@ console.log("soy la food data", foodData);
 			<img class="w-32 h-32" :src="foodPlaning" alt="Food Planning Logo" />
 
 			<h1 class="text-lime-600 text-center text-4xl font-medium leading-none">
-				Data information
+				{{ $t("dataBase.title") }}
 			</h1>
 
 			<div class="flex justify-center gap-4">
 				<input
 					type="text"
 					v-model="query"
-					placeholder="Search for food..."
+					:placeholder="$t('dataBase.placeholder')"
 					class="border border-gray-300 rounded-lg p-2 w-full max-w-md text-center"
 				/>
 				<Button
-					label="Search"
+					:label="$t('common.search')"
 					icon="pi pi-search"
 					severity="success"
-					class="w-32 !bg-gray-300 !border-none hover:!bg-lime-500"
+					class="button-green w-32 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-none"
 					@click="onSearch"
 					:disabled="!query"
 				/>
@@ -114,7 +124,9 @@ console.log("soy la food data", foodData);
 				v-if="foodData && foodData.length > 0"
 				class="w-[900px] flex flex-col mx-auto"
 			>
-				<h1 class="text-3xl font-bold text-center mb-6">Your Results</h1>
+				<h1 class="text-3xl font-bold text-center mb-6">
+					{{ $t("dataBase.resultsTitle") }}
+				</h1>
 
 				<div class="grid grid-cols-3 gap-8">
 					<div
@@ -123,7 +135,7 @@ console.log("soy la food data", foodData);
 						class="border rounded-lg shadow-lg bg-white p-4 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
 					>
 						<button
-							@click="fetchNutritionalInfo(food.food.foodId)"
+							@click="fetchNutritionalInfo(food.food)"
 							class="self-end text-gray-500"
 						>
 							<i class="pi pi-info-circle text-lg hover:text-lime-600"></i>
@@ -151,18 +163,18 @@ console.log("soy la food data", foodData);
 						</div>
 
 						<Button
-							label="Get Nutritional Info"
+							:label="$t('dataBase.getInfo')"
 							severity="primary"
 							icon="pi pi-info-circle"
 							class="w-full mt-auto !bg-gray-200 !border-none hover:!bg-lime-600"
-							@click="fetchNutritionalInfo(food.food.foodId)"
+							@click="fetchNutritionalInfo(food.food)"
 						/>
 					</div>
 				</div>
 			</div>
 
 			<div v-else class="text-center text-gray-500">
-				<p>No results found. Try another search.</p>
+				<p>{{ $t("dataBase.noResults") }}</p>
 			</div>
 
 			<!-- Display errors -->

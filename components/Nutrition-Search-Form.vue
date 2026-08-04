@@ -2,8 +2,11 @@
 import { ref, computed } from "vue";
 import SelectNutrition from "./Select-Nutrition.vue";
 import { useRouter } from "vue-router";
+import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
 const router = useRouter();
+const { t } = useI18n();
+const { translateToEnglish } = useTranslateQuery();
 
 const ingredientsList = ref<string[]>([]);
 const loading = ref(false);
@@ -21,9 +24,12 @@ const isIngredientValid = computed(
 		selectedIngredient.value.trim().length > 0
 );
 
-const addIngredient = () => {
+const addIngredient = async () => {
 	if (isIngredientValid.value) {
-		const formattedIngredient = `${selectedQuantity.value} ${selectedMeasure.value} of ${selectedIngredient.value}`;
+		const translatedIngredient = await translateToEnglish(
+			selectedIngredient.value
+		);
+		const formattedIngredient = `${selectedQuantity.value} ${selectedMeasure.value} of ${translatedIngredient}`;
 		ingredientsList.value.push(formattedIngredient);
 
 		selectedQuantity.value = "";
@@ -31,7 +37,7 @@ const addIngredient = () => {
 		selectedIngredient.value = "";
 		error.value = "";
 	} else {
-		error.value = "Please enter a valid ingredient with quantity and measure.";
+		error.value = t("nutritionFinder.invalidIngredient");
 	}
 };
 
@@ -101,7 +107,7 @@ const redirectToResults = () => {
 			<h1
 				class="text-lime-600 text-center text-4xl font-medium leading-none w-full"
 			>
-				Nutritional Lookup by ingredients
+				{{ $t("nutritionFinder.title") }}
 			</h1>
 			<div class="pt-4 flex flex-row gap-2 justify-center">
 				<SelectNutrition
@@ -114,7 +120,7 @@ const redirectToResults = () => {
 					class="text-sm h-[44px] bg-gray-100 rounded-lg hover:bg-lime-500 w-[130px]"
 					:disabled="!isIngredientValid"
 				>
-					Add Ingredient
+					{{ $t("common.addIngredient") }}
 				</button>
 			</div>
 		</div>
@@ -126,7 +132,7 @@ const redirectToResults = () => {
 				v-if="hasIngredients"
 				class="border border-darkGray text-center rounded-lg"
 			>
-				<h3 class="font-bold p-2">Your Ingredients list:</h3>
+				<h3 class="font-bold p-2">{{ $t("nutritionFinder.yourIngredients") }}</h3>
 				<ul class="w-[300px] flex flex-col">
 					<li
 						v-for="(ingredient, index) in ingredientsList"

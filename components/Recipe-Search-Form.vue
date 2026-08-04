@@ -3,20 +3,20 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
+import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
 const query = ref("");
 const router = useRouter();
 const placeholder = "All recipes";
+const { translateToEnglish } = useTranslateQuery();
 
-const submitSearch = () => {
-	console.log("Search Criteria:", {
-		query: query.value,
-	});
+const submitSearch = async () => {
+	const translatedQuery = await translateToEnglish(query.value);
 
 	router.push({
 		path: "/recipe-results",
 		query: {
-			query: query.value,
+			query: translatedQuery,
 		},
 	});
 	resetFields();
@@ -39,7 +39,7 @@ const clearPalceHolder = () => {
 			<h1
 				class="text-lime-600 text-center text-4xl font-medium leading-none mb-4"
 			>
-				Web recipe finder
+				{{ $t("recipeFinder.title") }}
 			</h1>
 		</div>
 
@@ -52,12 +52,12 @@ const clearPalceHolder = () => {
 						class="input w-full mb-2 text-center"
 						type="text"
 						v-model="query"
-						placeholder="All recipes"
+						:placeholder="$t('recipeFinder.placeholder')"
 						@focus="clearPalceHolder"
 						@blur="clearPalceHolder"
 					/>
 					<Button
-						label="Search"
+						:label="$t('common.search')"
 						severity="success"
 						raised
 						icon="pi pi-search"

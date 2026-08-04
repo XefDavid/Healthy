@@ -8,7 +8,7 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 		<div class="absolute top-3 right-3">
 			<nuxt-link to="/">
 				<Button
-					label="Back"
+					:label="$t('common.back')"
 					severity="secondary"
 					text
 					icon="pi pi-undo"

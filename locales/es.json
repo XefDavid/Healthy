@@ -1,0 +1,167 @@
+{
+	"common": {
+		"back": "Atrás",
+		"search": "Buscar",
+		"addIngredient": "Añadir ingrediente",
+		"loading": "Cargando...",
+		"all": "Todos"
+	},
+	"home": {
+		"eat": "Come,",
+		"drink": "Bebe,",
+		"love": "¡ama!!",
+		"recipeButton": "Buscador de recetas",
+		"nutritionButton": "Información nutricional",
+		"dataButton": "Información de datos"
+	},
+	"recipeFinder": {
+		"title": "Buscador de recetas",
+		"placeholder": "Todas las recetas"
+	},
+	"recipeResults": {
+		"loading": "Cargando recetas...",
+		"noResults": "No se encontraron recetas.",
+		"foundTotal": "¡Hemos encontrado un total de {count} recetas!"
+	},
+	"nutritionFinder": {
+		"title": "Consulta nutricional por ingredientes",
+		"invalidIngredient": "Introduce un ingrediente válido con cantidad y medida.",
+		"yourIngredients": "Tu lista de ingredientes:",
+		"getInfo": "Obtener información nutricional",
+		"resultsTitle": "Resultados nutricionales:",
+		"ingredientLabel": "Ingrediente:"
+	},
+	"selectNutrition": {
+		"quantity": "Cantidad",
+		"measure": "Medida",
+		"ingredient": "Ingrediente",
+		"measures": {
+			"ounce": "Onza",
+			"gram": "Gramo",
+			"pound": "Libra",
+			"kilogram": "Kilogramo",
+			"pinch": "Pizca",
+			"liter": "Litro",
+			"gallon": "Galón",
+			"pint": "Pinta",
+			"quart": "Cuarto de galón",
+			"milliliter": "Mililitro",
+			"drop": "Gota",
+			"cup": "Taza",
+			"tablespoon": "Cucharada",
+			"teaspoon": "Cucharadita"
+		}
+	},
+	"nutritionResult": {
+		"title": "Tus resultados nutricionales",
+		"calories": "Calorías:",
+		"co2Emissions": "Emisiones totales de CO2:",
+		"co2Class": "Clase de emisión de CO2:",
+		"totalWeight": "Peso total:",
+		"dietLabels": "Etiquetas de dieta:",
+		"notAvailable": "N/D",
+		"unknownError": "Error desconocido."
+	},
+	"dataBase": {
+		"title": "Información de datos",
+		"placeholder": "Buscar alimento...",
+		"resultsTitle": "Tus resultados",
+		"getInfo": "Ver información nutricional",
+		"noResults": "No se encontraron resultados. Prueba otra búsqueda.",
+		"failedInfo": "No se pudo obtener la información nutricional."
+	},
+	"dataBaseResult": {
+		"title": "Información nutricional",
+		"per100g": "(por 100 g)",
+		"backToSearch": "Volver a la búsqueda",
+		"noImage": "Imagen no disponible.",
+		"fat": "Grasas:",
+		"carbs": "Carbohidratos:",
+		"protein": "Proteínas:",
+		"noData": "No se encontraron datos nutricionales.",
+		"fetchError": "Error al obtener los datos."
+	},
+	"filters": {
+		"maxCalories": "Calorías máx..",
+		"dishType": "Tipo de plato",
+		"cuisine": "Cocina",
+		"dietType": "Tipo de dieta",
+		"healthRestrictions": "Restricciones de salud",
+		"none": "Ninguna",
+		"mealType": "Tipo de comida",
+		"dish": {
+			"drinks": "Bebidas",
+			"sweets": "Dulces",
+			"biscuits": "Galletas",
+			"condiments": "Condimentos y salsas",
+			"sandwiches": "Sándwiches",
+			"starter": "Entrante",
+			"mainCourse": "Plato principal",
+			"sideDish": "Guarnición",
+			"desserts": "Postres",
+			"specialOccasions": "Ocasiones especiales"
+		},
+		"cuisineOptions": {
+			"american": "Americana",
+			"asian": "Asiática",
+			"british": "Británica",
+			"caribbean": "Caribeña",
+			"centralEurope": "Europa Central",
+			"chinese": "China",
+			"easternEurope": "Europa del Este",
+			"french": "Francesa",
+			"greek": "Griega",
+			"indian": "India",
+			"italian": "Italiana",
+			"japanese": "Japonesa",
+			"korean": "Coreana",
+			"mediterranean": "Mediterránea",
+			"mexican": "Mexicana",
+			"middleEastern": "Oriente Medio",
+			"nordic": "Nórdica",
+			"southAmerican": "Sudamericana",
+			"southEastAsian": "Sudeste Asiático"
+		},
+		"diet": {
+			"balanced": "Equilibrada",
+			"highFiber": "Alta en fibra",
+			"highProtein": "Alta en proteína",
+			"lowCarb": "Baja en carbohidratos",
+			"lowFat": "Baja en grasa",
+			"lowSodium": "Baja en sodio"
+		},
+		"health": {
+			"sugarConscious": "Baja en azúcar",
+			"eggFree": "Sin huevo",
+			"vegetarian": "Vegetariana",
+			"mediterranean": "Mediterránea",
+			"dairyFree": "Sin lácteos",
+			"glutenFree": "Sin gluten",
+			"wheatFree": "Sin trigo",
+			"peanutFree": "Sin cacahuete",
+			"treeNutFree": "Sin frutos secos",
+			"soyFree": "Sin soja",
+			"fishFree": "Sin pescado",
+			"shellfishFree": "Sin mariscos",
+			"porkFree": "Sin cerdo",
+			"redMeatFree": "Sin carne roja",
+			"crustaceanFree": "Sin crustáceos",
+			"celeryFree": "Sin apio",
+			"mustardFree": "Sin mostaza",
+			"sesameFree": "Sin sésamo",
+			"lupinFree": "Sin altramuz",
+			"molluskFree": "Sin moluscos",
+			"alcoholFree": "Sin alcohol",
+			"sulfiteFree": "Sin sulfitos",
+			"kosher": "Kosher",
+			"immunoSupportive": "Inmunoestimulante"
+		},
+		"meal": {
+			"breakfast": "Desayuno",
+			"brunch": "Brunch",
+			"lunchDinner": "Almuerzo/Cena",
+			"snack": "Aperitivo",
+			"teatime": "Merienda"
+		}
+	}
+}
