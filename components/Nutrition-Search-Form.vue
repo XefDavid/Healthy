@@ -63,7 +63,9 @@ const redirectToResults = () => {
 			>
 				{{ $t("nutritionFinder.title") }}
 			</h1>
-			<div class="pt-4 flex flex-col sm:flex-row gap-2 justify-center items-center">
+			<div
+				class="mt-4 flex flex-col sm:flex-row gap-2 justify-center items-center rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
+			>
 				<SelectNutrition
 					v-model:selectedQuantity="selectedQuantity"
 					v-model:selectedMeasure="selectedMeasure"

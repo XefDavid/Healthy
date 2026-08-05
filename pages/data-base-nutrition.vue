@@ -2,7 +2,6 @@
 import { ref, watch, nextTick, onMounted } from "vue";
 import { useRouter } from "#app";
 import { useEdamamDataBase } from "~/composables/useEdamamDataBase";
-import noImage from "~/assets/images/noImage.webp";
 import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
 const { t } = useI18n();
@@ -152,12 +151,14 @@ console.log("soy la food data", foodData);
 							class="w-full max-h-40 object-cover rounded-lg mb-4 border border-neutral-800 object-fit"
 						/>
 					</div>
-					<div v-else>
-						<img
-							:src="noImage"
-							alt="No Image"
-							class="w-full h-40 object-cover rounded-lg mb-4 border border-neutral-800"
-						/>
+					<div
+						v-else
+						class="w-full h-40 mb-4 flex flex-col items-center justify-center gap-2 rounded-lg border border-neutral-800 bg-neutral-900 text-neutral-600"
+					>
+						<i class="pi pi-image text-3xl"></i>
+						<span class="text-xs text-neutral-500">{{
+							$t("dataBase.noImage")
+						}}</span>
 					</div>
 
 					<Button

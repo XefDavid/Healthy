@@ -48,60 +48,93 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="container mx-auto max-w-2xl px-4 pt-16 pb-8">
-		<div class="flex justify-between items-center gap-4">
-			<h1 class="text-2xl sm:text-3xl font-bold text-white">
-				{{ $t("dataBaseResult.title") }}
-			</h1>
-			<nuxt-link to="/" class="text-lime-400 hover:text-lime-300 shrink-0">{{
-				$t("dataBaseResult.backToSearch")
-			}}</nuxt-link>
-		</div>
+	<div class="absolute top-3 right-3">
+		<nuxt-link to="/" class="text-lime-400 hover:text-lime-300 text-sm">{{
+			$t("dataBaseResult.backToSearch")
+		}}</nuxt-link>
+	</div>
 
-		<div v-if="foodDetails">
-			<!-- Mostrar los detalles del alimento -->
-			<h2 class="text-xl sm:text-2xl font-semibold text-white mt-6">
+	<div
+		class="flex min-h-screen flex-col items-center gap-6 px-4 pt-16 pb-8 text-center"
+	>
+		<h1 class="text-2xl sm:text-3xl font-bold text-white">
+			{{ $t("dataBaseResult.title") }}
+		</h1>
+
+		<div v-if="foodDetails" class="flex w-full flex-col items-center gap-6">
+			<h2
+				class="flex items-center gap-2 text-xl sm:text-2xl font-semibold text-white"
+			>
+				<i class="pi pi-apple text-lime-400"></i>
 				{{ foodDetails?.label }}
 			</h2>
-			<div v-if="foodDetails?.image">
+
+			<div
+				class="rounded-2xl bg-white p-2 shadow-lg shadow-black/40 border border-neutral-800"
+			>
 				<img
+					v-if="foodDetails?.image"
 					:src="foodDetails?.image"
 					alt="Food Image"
-					class="w-full max-h-60 object-cover rounded-lg mt-4 border border-neutral-800"
+					class="w-44 h-44 sm:w-52 sm:h-52 object-cover rounded-xl"
 				/>
-			</div>
-			<div v-else>
-				<p class="text-neutral-400 mt-2">{{ $t("dataBaseResult.noImage") }}</p>
+				<div
+					v-else
+					class="w-44 h-44 sm:w-52 sm:h-52 flex flex-col items-center justify-center gap-2 rounded-xl bg-neutral-100 text-neutral-400"
+				>
+					<i class="pi pi-image text-3xl"></i>
+					<span class="text-xs">{{ $t("dataBaseResult.noImage") }}</span>
+				</div>
 			</div>
 
 			<div
-				class="mt-6 rounded-lg border border-neutral-800 bg-neutral-900/60 p-6"
+				class="w-full max-w-xs rounded-lg border border-neutral-800 bg-neutral-900/60 p-5"
 			>
-				<h3 class="text-xl font-medium text-white">
+				<h3 class="text-lg font-medium text-white">
 					{{ $t("dataBaseResult.title") }}
-					<span class="text-sm font-normal text-neutral-400">{{
+					<span class="block text-xs font-normal text-neutral-400">{{
 						$t("dataBaseResult.per100g")
 					}}</span>
 				</h3>
-				<ul class="list-none mt-2 text-neutral-300">
-					<li>
-						<strong class="text-white">{{ $t("nutritionResult.calories") }}</strong>
-						{{ foodDetails?.calories }}
+				<ul class="list-none mt-4 flex flex-col gap-3 text-left">
+					<li class="flex items-center justify-between">
+						<span class="flex items-center gap-2 text-neutral-300">
+							<i class="pi pi-bolt text-orange-400"></i>
+							{{ $t("nutritionResult.calories") }}
+						</span>
+						<span class="font-semibold text-white">{{
+							foodDetails?.calories?.toFixed(2)
+						}}</span>
 					</li>
-					<li>
-						<strong class="text-white">{{ $t("dataBaseResult.fat") }}</strong>
-						{{ foodDetails?.totalNutrients.FAT?.quantity }}
-						{{ foodDetails?.totalNutrients.FAT?.unit }}
+					<li class="flex items-center justify-between">
+						<span class="flex items-center gap-2 text-neutral-300">
+							<i class="pi pi-circle-fill text-yellow-400"></i>
+							{{ $t("dataBaseResult.fat") }}
+						</span>
+						<span class="font-semibold text-white"
+							>{{ foodDetails?.totalNutrients.FAT?.quantity?.toFixed(2) }}
+							{{ foodDetails?.totalNutrients.FAT?.unit }}</span
+						>
 					</li>
-					<li>
-						<strong class="text-white">{{ $t("dataBaseResult.carbs") }}</strong>
-						{{ foodDetails?.totalNutrients.CHOCDF?.quantity }}
-						{{ foodDetails?.totalNutrients.CHOCDF?.unit }}
+					<li class="flex items-center justify-between">
+						<span class="flex items-center gap-2 text-neutral-300">
+							<i class="pi pi-box text-blue-400"></i>
+							{{ $t("dataBaseResult.carbs") }}
+						</span>
+						<span class="font-semibold text-white"
+							>{{ foodDetails?.totalNutrients.CHOCDF?.quantity?.toFixed(2) }}
+							{{ foodDetails?.totalNutrients.CHOCDF?.unit }}</span
+						>
 					</li>
-					<li>
-						<strong class="text-white">{{ $t("dataBaseResult.protein") }}</strong>
-						{{ foodDetails?.totalNutrients.PROCNT?.quantity }}
-						{{ foodDetails?.totalNutrients.PROCNT?.unit }}
+					<li class="flex items-center justify-between">
+						<span class="flex items-center gap-2 text-neutral-300">
+							<i class="pi pi-heart-fill text-red-400"></i>
+							{{ $t("dataBaseResult.protein") }}
+						</span>
+						<span class="font-semibold text-white"
+							>{{ foodDetails?.totalNutrients.PROCNT?.quantity?.toFixed(2) }}
+							{{ foodDetails?.totalNutrients.PROCNT?.unit }}</span
+						>
 					</li>
 				</ul>
 			</div>

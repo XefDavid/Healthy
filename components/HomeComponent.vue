@@ -20,6 +20,18 @@ const cards = [
 		title: "home.dataButton",
 		subtitle: "home.dataSubtitle",
 	},
+	{
+		to: "/recipe-analyzer",
+		icon: "pi pi-calculator",
+		title: "home.analyzerButton",
+		subtitle: "home.analyzerSubtitle",
+	},
+	{
+		to: "/calorie-calculator",
+		icon: "pi pi-gauge",
+		title: "home.calorieCalculatorButton",
+		subtitle: "home.calorieCalculatorSubtitle",
+	},
 ];
 </script>
 

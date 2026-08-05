@@ -9,6 +9,7 @@ import LanguageToggle from "~/components/LanguageToggle.vue";
 			<LanguageToggle />
 		</div>
 		<NuxtPage />
+		<Footer />
 	</NuxtLayout>
 </template>
 <style>

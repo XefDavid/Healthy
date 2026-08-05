@@ -9,7 +9,22 @@ import { useState } from "nuxt/app";
 
 const route = useRoute();
 const router = useRouter();
+const { locale } = useI18n();
 const { translateToSpanish } = useTranslateQuery();
+
+const TRANSLATE_TIP_DISMISSED_KEY = "recipeResults.translateTipDismissed";
+const showTranslateTip = ref(false);
+
+onMounted(() => {
+	if (localStorage.getItem(TRANSLATE_TIP_DISMISSED_KEY) !== "1") {
+		showTranslateTip.value = true;
+	}
+});
+
+const dismissTranslateTip = () => {
+	showTranslateTip.value = false;
+	localStorage.setItem(TRANSLATE_TIP_DISMISSED_KEY, "1");
+};
 
 const { recipes, loading, error, getRecipes } = useEdamam();
 const originalRecipes = ref([]);
@@ -132,6 +147,22 @@ console;
 		</div>
 
 		<div class="flex flex-col gap-4 justify-center pb-16">
+			<div
+				v-if="showTranslateTip && locale === 'es'"
+				class="mx-auto flex w-full max-w-[1100px] items-start gap-3 rounded-lg border border-lime-500/30 bg-lime-500/10 px-4 py-3 text-sm text-neutral-200"
+			>
+				<i class="pi pi-info-circle mt-0.5 text-lime-400"></i>
+				<p class="flex-1">{{ $t("recipeResults.translateTip") }}</p>
+				<button
+					type="button"
+					@click="dismissTranslateTip"
+					class="text-neutral-400 hover:text-white"
+					:aria-label="$t('common.close')"
+				>
+					<i class="pi pi-times"></i>
+				</button>
+			</div>
+
 			<div v-if="loading" class="text-center text-neutral-300">
 				<p>{{ $t("recipeResults.loading") }}</p>
 			</div>

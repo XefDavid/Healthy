@@ -38,9 +38,7 @@ const measures = computed(() => [
 ]);
 </script>
 <template>
-	<div
-		class="mb-8 flex flex-wrap justify-center items-center bg-lime-500 text-sm p-2 rounded-lg gap-2"
-	>
+	<div class="flex flex-wrap justify-center items-center text-sm gap-2">
 		<!-- Input para la cantidad -->
 		<InputText
 			type="text"

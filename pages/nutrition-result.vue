@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useRuntimeConfig } from "#app"; // Para claves de API
+import { translateDietLabel } from "~/utils/dietLabels";
 
 const { t } = useI18n();
 const loading = ref(false);
@@ -43,7 +44,7 @@ const fetchNutrition = async () => {
 						totalCO2Emissions: Math.round(data.totalCO2Emissions),
 						co2EmissionsClass: data.co2EmissionsClass,
 						totalWeight: Math.round(data.totalWeight),
-						dietLabels: data.dietLabels.join(", "),
+						dietLabels: data.dietLabels.map((l: string) => translateDietLabel(l, t)).join(", "),
 					},
 				});
 			} else {
@@ -93,13 +94,11 @@ onMounted(() => {
 				{{ $t("nutritionResult.title") }}
 			</h3>
 
-			<ul
-				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
-			>
+			<ul class="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto px-4">
 				<li
 					v-for="(result, index) in nutritionData"
 					:key="index"
-					class="p-6 bg-neutral-900/60 border border-neutral-800 rounded-xl hover:border-lime-500/40 transition duration-300"
+					class="w-full sm:w-80 p-6 bg-neutral-900/60 border border-neutral-800 rounded-xl hover:border-lime-500/40 transition duration-300"
 				>
 					<h1 class="text-xl font-bold text-white mb-2">
 						{{ result.ingredient }}

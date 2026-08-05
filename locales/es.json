@@ -4,7 +4,9 @@
 		"search": "Buscar",
 		"addIngredient": "Añadir ingrediente",
 		"loading": "Cargando...",
-		"all": "Todos"
+		"all": "Todos",
+		"close": "Cerrar",
+		"calculate": "Calcular"
 	},
 	"home": {
 		"brandFood": "FOOD",
@@ -18,8 +20,12 @@
 		"recipeSubtitle": "Encuentra recetas saludables",
 		"nutritionButton": "Información nutricional",
 		"nutritionSubtitle": "Conoce los valores de los alimentos",
-		"dataButton": "Información de datos",
-		"dataSubtitle": "Estadísticas y seguimiento"
+		"dataButton": "Busca tu alimento",
+		"dataSubtitle": "Consulta los nutrientes de cualquier alimento",
+		"analyzerButton": "Analiza tu receta",
+		"analyzerSubtitle": "Calcula las calorías de tu propia receta",
+		"calorieCalculatorButton": "Calculadora de calorías",
+		"calorieCalculatorSubtitle": "Descubre cuántas calorías necesitas al día"
 	},
 	"recipeFinder": {
 		"title": "Buscador de recetas",
@@ -28,15 +34,47 @@
 	"recipeResults": {
 		"loading": "Cargando recetas...",
 		"noResults": "No se encontraron recetas.",
-		"foundTotal": "¡Hemos encontrado un total de {count} recetas!"
+		"foundTotal": "¡Hemos encontrado un total de {count} recetas!",
+		"translateTip": "Estas recetas abren en la web original, en inglés. Para verlas en español, haz clic derecho sobre la página y elige \"Traducir al español\" (o usa el ícono de traducción de la barra de direcciones)."
 	},
 	"nutritionFinder": {
-		"title": "Consulta nutricional por ingredientes",
+		"title": "Info nutricional",
 		"invalidIngredient": "Introduce un ingrediente válido con cantidad y medida.",
 		"yourIngredients": "Tu lista de ingredientes:",
 		"getInfo": "Obtener información nutricional",
 		"resultsTitle": "Resultados nutricionales:",
 		"ingredientLabel": "Ingrediente:"
+	},
+	"recipeAnalyzer": {
+		"title": "Analiza tu receta",
+		"dishNamePlaceholder": "Nombre del plato",
+		"resultsSubtitle": "Total de la receta",
+		"error": "No se pudo analizar la receta. Inténtalo de nuevo."
+	},
+	"calorieCalculator": {
+		"title": "Tu calculadora de calorías",
+		"age": "Edad",
+		"height": "Altura (cm)",
+		"weight": "Peso (kg)",
+		"male": "Hombre",
+		"female": "Mujer",
+		"activity": {
+			"sedentary": "Sedentario (poco o nada de ejercicio)",
+			"light": "Ligero (ejercicio 1-3 días/semana)",
+			"moderate": "Moderado (ejercicio 3-5 días/semana)",
+			"active": "Activo (ejercicio 6-7 días/semana)",
+			"veryActive": "Muy activo (ejercicio intenso a diario)"
+		},
+		"goal": {
+			"lose": "Perder peso",
+			"maintain": "Mantener peso",
+			"gain": "Ganar peso"
+		},
+		"bmrLabel": "Metabolismo basal (BMR)",
+		"maintenanceLabel": "Calorías de mantenimiento",
+		"goalCaloriesLabel": "Calorías para tu objetivo",
+		"macrosSubtitle": "Reparto de macros sugerido",
+		"disclaimer": "Esta es una estimación general basada en fórmulas estándar, no un consejo médico personalizado."
 	},
 	"selectNutrition": {
 		"quantity": "Cantidad",
@@ -70,12 +108,13 @@
 		"unknownError": "Error desconocido."
 	},
 	"dataBase": {
-		"title": "Información de datos",
+		"title": "Busca tu alimento",
 		"placeholder": "Buscar alimento...",
 		"resultsTitle": "Tus resultados",
 		"getInfo": "Ver información nutricional",
 		"noResults": "No se encontraron resultados. Prueba otra búsqueda.",
-		"failedInfo": "No se pudo obtener la información nutricional."
+		"failedInfo": "No se pudo obtener la información nutricional.",
+		"noImage": "Sin imagen"
 	},
 	"dataBaseResult": {
 		"title": "Información nutricional",
@@ -170,5 +209,10 @@
 			"snack": "Aperitivo",
 			"teatime": "Merienda"
 		}
+	},
+	"footer": {
+		"builtBy": "Creado por",
+		"poweredBy": "Con datos de",
+		"disclaimer": "⚠️ Este es un proyecto de portafolio con fines de demostración. No está pensado para uso comercial."
 	}
 }
