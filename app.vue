@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import "primeicons/primeicons.css";
-import LanguageToggle from "~/components/LanguageToggle.vue";
 </script>
 
 <template>
 	<NuxtLayout>
-		<div class="fixed top-3 left-3 z-50">
-			<LanguageToggle />
+		<Topbar />
+		<AppSidebar />
+		<div class="pt-16 md:ml-64">
+			<NuxtPage />
+			<ToolsQuickbar />
+			<Footer />
 		</div>
-		<NuxtPage />
-		<Footer />
 	</NuxtLayout>
 </template>
 <style>

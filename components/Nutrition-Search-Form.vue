@@ -56,29 +56,22 @@ const redirectToResults = () => {
 };
 </script>
 <template>
-	<div class="flex w-full flex-col items-center justify-center gap-6 px-4">
-		<div class="w-full max-w-xl">
-			<h1
-				class="text-lime-400 text-center text-3xl sm:text-4xl font-medium leading-none w-full"
+	<div class="flex w-full flex-col gap-6">
+		<div
+			class="flex flex-col sm:flex-row gap-2 justify-center items-center rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
+		>
+			<SelectNutrition
+				v-model:selectedQuantity="selectedQuantity"
+				v-model:selectedMeasure="selectedMeasure"
+				v-model:selectedIngredient="selectedIngredient"
+			/>
+			<button
+				@click="addIngredient"
+				class="text-sm h-[44px] w-full sm:w-[130px] shrink-0 bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
+				:disabled="!isIngredientValid"
 			>
-				{{ $t("nutritionFinder.title") }}
-			</h1>
-			<div
-				class="mt-4 flex flex-col sm:flex-row gap-2 justify-center items-center rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
-			>
-				<SelectNutrition
-					v-model:selectedQuantity="selectedQuantity"
-					v-model:selectedMeasure="selectedMeasure"
-					v-model:selectedIngredient="selectedIngredient"
-				/>
-				<button
-					@click="addIngredient"
-					class="text-sm h-[44px] w-full sm:w-[130px] shrink-0 bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
-					:disabled="!isIngredientValid"
-				>
-					{{ $t("common.addIngredient") }}
-				</button>
-			</div>
+				{{ $t("common.addIngredient") }}
+			</button>
 		</div>
 
 		<div v-if="error" class="text-red-500 text-sm">{{ error }}</div>

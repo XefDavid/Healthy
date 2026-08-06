@@ -48,12 +48,6 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="absolute top-3 right-3">
-		<nuxt-link to="/" class="text-lime-400 hover:text-lime-300 text-sm">{{
-			$t("dataBaseResult.backToSearch")
-		}}</nuxt-link>
-	</div>
-
 	<div
 		class="flex min-h-screen flex-col items-center gap-6 px-4 pt-16 pb-8 text-center"
 	>

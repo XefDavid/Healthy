@@ -67,21 +67,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="absolute top-3 right-3">
-		<nuxt-link to="/">
-			<Button
-				:label="$t('common.back')"
-				severity="secondary"
-				text
-				icon="pi pi-undo"
-				class="button-gray w-full"
-			/>
-		</nuxt-link>
-	</div>
-
 	<div class="flex flex-col items-center gap-8 px-4 py-16">
-		<AppLogo size="sm" />
-
 		<div v-if="loading" class="text-lg text-neutral-300">
 			{{ $t("common.loading") }}
 		</div>

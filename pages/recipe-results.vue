@@ -2,7 +2,6 @@
 import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useEdamam } from "~/composables/useEdamam";
-import TopBar from "~/components/top-bar.vue";
 import { useTranslateQuery } from "~/composables/useTranslateQuery";
 
 import { useState } from "nuxt/app";
@@ -137,11 +136,7 @@ console;
 </script>
 
 <template>
-	<div class="container mx-auto px-4">
-		<div class="m-4 flex items-center justify-center">
-			<TopBar />
-		</div>
-
+	<div class="container mx-auto px-4 pt-8">
 		<div class="flex justify-center">
 			<SelectsRecipes />
 		</div>

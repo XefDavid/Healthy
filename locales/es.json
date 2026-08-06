@@ -1,4 +1,19 @@
 {
+	"sidebar": {
+		"home": "Inicio",
+		"recipes": "Recetas",
+		"nutrition": "Nutrición",
+		"foods": "Alimentos",
+		"favorites": "Favoritos",
+		"history": "Historial",
+		"settings": "Ajustes",
+		"comingSoon": "Próximamente",
+		"quote": "Pequeñas decisiones, grandes cambios.",
+		"openMenu": "Abrir menú"
+	},
+	"topbar": {
+		"searchPlaceholder": "Buscar alimentos, recetas..."
+	},
 	"common": {
 		"back": "Atrás",
 		"search": "Buscar",
@@ -25,7 +40,17 @@
 		"analyzerButton": "Analiza tu receta",
 		"analyzerSubtitle": "Calcula las calorías de tu propia receta",
 		"calorieCalculatorButton": "Calculadora de calorías",
-		"calorieCalculatorSubtitle": "Descubre cuántas calorías necesitas al día"
+		"calorieCalculatorSubtitle": "Descubre cuántas calorías necesitas al día",
+		"suggesterButton": "¿Qué cocino hoy?",
+		"suggesterSubtitle": "Dime qué tienes en el frigo y te sugiero una receta",
+		"trustPrivate": "Privado y seguro",
+		"trustPrivateSubtitle": "Tus datos siempre protegidos",
+		"trustFast": "Rápido y sencillo",
+		"trustFastSubtitle": "Todo al alcance de un clic",
+		"trustHealthy": "Hábitos saludables",
+		"trustHealthySubtitle": "Mejora tu calidad de vida",
+		"trustPersonal": "Hecho para ti",
+		"trustPersonalSubtitle": "Personaliza tu experiencia"
 	},
 	"recipeFinder": {
 		"title": "Buscador de recetas",
@@ -47,12 +72,29 @@
 	},
 	"recipeAnalyzer": {
 		"title": "Analiza tu receta",
+		"titlePrefix": "Analiza tu",
+		"titleAccent": "receta",
+		"subtitle": "Añade los ingredientes de tu plato y calcula sus valores nutricionales.",
 		"dishNamePlaceholder": "Nombre del plato",
 		"resultsSubtitle": "Total de la receta",
+		"emptyState": "Añade ingredientes y calcula para ver el total aquí.",
 		"error": "No se pudo analizar la receta. Inténtalo de nuevo."
 	},
+	"recipeSuggester": {
+		"title": "¿Qué cocino hoy?",
+		"subtitle": "Dime qué tienes en el frigo y te sugiero una receta",
+		"placeholder": "Ej. pollo, limón, ajo...",
+		"remaining": "Puedes añadir {count} ingrediente(s) más",
+		"maxReached": "Máximo 5 ingredientes",
+		"searchButton": "Buscar recetas"
+	},
 	"calorieCalculator": {
-		"title": "Tu calculadora de calorías",
+		"title": "Calculadora de calorías",
+		"titlePrefix": "Tu calculadora de",
+		"titleAccent": "calorías",
+		"subtitle": "Calcula tus necesidades calóricas diarias según tus datos y actividad.",
+		"summaryTitle": "Tu resumen",
+		"emptyState": "Completa el formulario y calcula para ver tu resumen aquí.",
 		"age": "Edad",
 		"height": "Altura (cm)",
 		"weight": "Peso (kg)",
@@ -119,7 +161,6 @@
 	"dataBaseResult": {
 		"title": "Información nutricional",
 		"per100g": "(por 100 g)",
-		"backToSearch": "Volver a la búsqueda",
 		"noImage": "Imagen no disponible.",
 		"fat": "Grasas:",
 		"carbs": "Carbohidratos:",
