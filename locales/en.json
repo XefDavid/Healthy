@@ -8,7 +8,6 @@
 		"history": "History",
 		"settings": "Settings",
 		"comingSoon": "Coming soon",
-		"quote": "Small choices, big changes.",
 		"openMenu": "Open menu"
 	},
 	"topbar": {
@@ -21,7 +20,8 @@
 		"loading": "Loading...",
 		"all": "All",
 		"close": "Close",
-		"calculate": "Calculate"
+		"calculate": "Calculate",
+		"continue": "Continue"
 	},
 	"home": {
 		"brandFood": "FOOD",
@@ -43,6 +43,8 @@
 		"calorieCalculatorSubtitle": "Find out how many calories you need per day",
 		"suggesterButton": "What should I cook today?",
 		"suggesterSubtitle": "Tell me what's in your fridge and I'll suggest a recipe",
+		"runnerButton": "How do I burn it off?",
+		"runnerSubtitle": "Find out how much exercise you need to burn it off",
 		"trustPrivate": "Private & Secure",
 		"trustPrivateSubtitle": "Your data always protected",
 		"trustFast": "Fast & Simple",
@@ -87,6 +89,36 @@
 		"remaining": "You can add {count} more ingredient(s)",
 		"maxReached": "Maximum 5 ingredients",
 		"searchButton": "Find recipes"
+	},
+	"runner": {
+		"title": "How do I burn it off?",
+		"titlePrefix": "How do I",
+		"titleAccent": "burn it off?",
+		"subtitle": "Calculate how much exercise you need to burn off a given amount of calories.",
+		"stepCaloriesTitle": "How many calories do you want to burn?",
+		"stepCaloriesSubtitle": "Type them in, or arrive here from an already calculated result.",
+		"caloriesPlaceholder": "Calories (kcal)",
+		"stepWeightTitle": "Your weight, exercise and pace",
+		"exerciseLabel": "Exercise type",
+		"exercise": {
+			"running": "Running",
+			"walking": "Walking",
+			"cycling": "Cycling",
+			"swimming": "Swimming"
+		},
+		"intensityLabel": "Pace",
+		"intensity": {
+			"light": "Light",
+			"moderate": "Moderate",
+			"fast": "Fast"
+		},
+		"calculating": "Calculating your run...",
+		"resultTitle": "Here's what you need to run",
+		"minutes": "minutes",
+		"km": "km",
+		"calculateAgain": "Calculate again",
+		"burnItOff": "How much do I need to run to burn this off?",
+		"disclaimer": "Estimate based on standard MET values for continuous running, not personalized medical advice."
 	},
 	"calorieCalculator": {
 		"title": "Calorie Calculator",

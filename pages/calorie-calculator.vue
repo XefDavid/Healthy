@@ -3,7 +3,7 @@ import CalorieCalculatorForm from "~/components/Calorie-Calculator-Form.vue";
 </script>
 
 <template>
-	<div class="relative z-0 min-h-screen px-4 py-8 sm:px-8 sm:py-10">
+	<div class="relative z-0 h-full px-4 py-8 sm:px-8 sm:py-10">
 		<PageBackground />
 
 		<div class="relative mx-auto max-w-4xl">

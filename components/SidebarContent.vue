@@ -14,6 +14,7 @@ const navItems = [
 	{ to: "/recipe-analyzer", icon: "pi pi-calculator", label: "home.analyzerButton" },
 	{ to: "/calorie-calculator", icon: "pi pi-gauge", label: "home.calorieCalculatorButton" },
 	{ to: "/recipe-suggester", icon: "pi pi-inbox", label: "home.suggesterButton" },
+	{ to: "/running-calculator", icon: "pi pi-map", label: "home.runnerButton" },
 ];
 
 const comingSoonItems = [
@@ -97,12 +98,5 @@ const closeMobile = () => {
 				}}</span>
 			</div>
 		</nav>
-	</div>
-
-	<div class="rounded-lg border border-neutral-800 bg-neutral-900/60 p-4">
-		<i class="pi pi-sparkles text-lime-500"></i>
-		<p class="mt-2 text-sm italic text-neutral-400">
-			"{{ $t("sidebar.quote") }}"
-		</p>
 	</div>
 </template>

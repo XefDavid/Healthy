@@ -8,7 +8,6 @@
 		"history": "Historial",
 		"settings": "Ajustes",
 		"comingSoon": "Próximamente",
-		"quote": "Pequeñas decisiones, grandes cambios.",
 		"openMenu": "Abrir menú"
 	},
 	"topbar": {
@@ -21,7 +20,8 @@
 		"loading": "Cargando...",
 		"all": "Todos",
 		"close": "Cerrar",
-		"calculate": "Calcular"
+		"calculate": "Calcular",
+		"continue": "Continuar"
 	},
 	"home": {
 		"brandFood": "FOOD",
@@ -43,6 +43,8 @@
 		"calorieCalculatorSubtitle": "Descubre cuántas calorías necesitas al día",
 		"suggesterButton": "¿Qué cocino hoy?",
 		"suggesterSubtitle": "Dime qué tienes en el frigo y te sugiero una receta",
+		"runnerButton": "¿Cómo lo quemo?",
+		"runnerSubtitle": "Descubre cuánto ejercicio necesitas para quemarlo",
 		"trustPrivate": "Privado y seguro",
 		"trustPrivateSubtitle": "Tus datos siempre protegidos",
 		"trustFast": "Rápido y sencillo",
@@ -87,6 +89,36 @@
 		"remaining": "Puedes añadir {count} ingrediente(s) más",
 		"maxReached": "Máximo 5 ingredientes",
 		"searchButton": "Buscar recetas"
+	},
+	"runner": {
+		"title": "¿Cómo lo quemo?",
+		"titlePrefix": "¿Cómo lo",
+		"titleAccent": "quemo?",
+		"subtitle": "Calcula cuánto ejercicio necesitas para quemar unas calorías concretas.",
+		"stepCaloriesTitle": "¿Cuántas calorías quieres quemar?",
+		"stepCaloriesSubtitle": "Escríbelas o llega aquí desde un resultado ya calculado.",
+		"caloriesPlaceholder": "Calorías (kcal)",
+		"stepWeightTitle": "Tu peso, ejercicio y ritmo",
+		"exerciseLabel": "Tipo de ejercicio",
+		"exercise": {
+			"running": "Correr",
+			"walking": "Caminar",
+			"cycling": "Bicicleta",
+			"swimming": "Nadar"
+		},
+		"intensityLabel": "Ritmo",
+		"intensity": {
+			"light": "Suave",
+			"moderate": "Moderado",
+			"fast": "Rápido"
+		},
+		"calculating": "Calculando tu carrera...",
+		"resultTitle": "Esto es lo que necesitas correr",
+		"minutes": "minutos",
+		"km": "km",
+		"calculateAgain": "Calcular de nuevo",
+		"burnItOff": "¿Cuánto tengo que correr para quemarlo?",
+		"disclaimer": "Estimación basada en valores MET estándar para carrera continua, no es un consejo médico personalizado."
 	},
 	"calorieCalculator": {
 		"title": "Calculadora de calorías",

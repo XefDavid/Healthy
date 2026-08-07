@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import SelectNutrition from "./Select-Nutrition.vue";
 import { useTranslateQuery } from "~/composables/useTranslateQuery";
 import { useEdamamRecipeAnalysis } from "~/composables/useEdamamRecipeAnalysis";
 import { translateDietLabel } from "~/utils/dietLabels";
+
+const router = useRouter();
 
 const { t } = useI18n();
 const { translateToEnglish } = useTranslateQuery();
@@ -60,6 +63,14 @@ const removeIngredient = (index: number) => {
 const calculate = async () => {
 	if (!canCalculate.value) return;
 	await analyzeRecipe(dishName.value, ingredientsList.value);
+};
+
+const goToRunner = () => {
+	if (!result.value) return;
+	router.push({
+		path: "/running-calculator",
+		query: { calories: String(Math.round(result.value.calories)) },
+	});
 };
 </script>
 
@@ -194,6 +205,14 @@ const calculate = async () => {
 						}}</span>
 					</li>
 				</ul>
+
+				<button
+					@click="goToRunner"
+					class="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-neutral-800 text-sm font-medium text-white h-[40px] transition hover:border-lime-500/50 hover:text-lime-400"
+				>
+					<i class="pi pi-map"></i>
+					{{ $t("runner.burnItOff") }}
+				</button>
 			</template>
 
 			<div
