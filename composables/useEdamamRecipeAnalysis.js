@@ -30,14 +30,19 @@ export const useEdamamRecipeAnalysis = () => {
 			);
 
 			if (!response?.totalNutrients || !response.calories) {
-				error.value = "No nutritional data found for this recipe.";
+				error.value = "no_data";
 				return null;
 			}
 
 			result.value = response;
 			return response;
 		} catch (err) {
-			error.value = "Error analyzing recipe.";
+			// Edamam devuelve {"error":"low_quality"} (HTTP 555) cuando no
+			// reconoce el texto del ingrediente como un alimento válido, algo
+			// que pasa a menudo con frases descriptivas de plato en vez de un
+			// nombre de alimento simple (ej. "Roast lamb" en vez de "lamb").
+			const edamamError = err?.data?.error ?? err?.response?._data?.error;
+			error.value = edamamError === "low_quality" ? "low_quality" : "unknown";
 			console.error("Recipe analysis error:", err);
 			return null;
 		} finally {

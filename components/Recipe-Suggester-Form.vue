@@ -50,8 +50,8 @@ const searchRecipes = async () => {
 </script>
 
 <template>
-	<div class="flex w-full flex-col items-center gap-6">
-		<div class="w-full max-w-md text-center">
+	<div class="flex w-full flex-col gap-6">
+		<div class="w-full max-w-md">
 			<div class="flex flex-col gap-3 rounded-lg border border-neutral-800 bg-neutral-900/60 p-4">
 				<div class="flex flex-col sm:flex-row gap-2">
 					<input

@@ -6,7 +6,7 @@ import CalorieCalculatorForm from "~/components/Calorie-Calculator-Form.vue";
 	<div class="relative z-0 h-full px-4 py-8 sm:px-8 sm:py-10">
 		<PageBackground />
 
-		<div class="relative mx-auto max-w-4xl">
+		<div class="relative max-w-4xl">
 			<AppBreadcrumb :label="$t('calorieCalculator.title')" />
 
 			<div class="mb-8 flex items-center gap-4">

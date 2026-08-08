@@ -22,10 +22,13 @@ export const useTranslateQuery = () => {
 	};
 
 	// Español -> Inglés, usado para enviar las búsquedas del usuario a Edamam.
+	// Se ejecuta siempre, independientemente del idioma de la interfaz, porque
+	// el usuario puede escribir en español aunque la app esté en inglés (el
+	// idioma por defecto). Traducir un texto que ya está en inglés no hace daño.
 	// Consulta primero el diccionario de comida (fiable para palabras sueltas)
 	// y solo cae a MyMemory si el término no está en el diccionario.
 	const translateToEnglish = async (text) => {
-		if (!text || locale.value !== "es") return text;
+		if (!text) return text;
 
 		const dictionaryMatch = FOOD_DICTIONARY[text.trim().toLowerCase()];
 		if (dictionaryMatch) return dictionaryMatch;

@@ -11,6 +11,7 @@ const { foodData, nutritionData, error, searchFood, getNutritionData } =
 const query = ref("");
 const loading = ref(false);
 const imagesLoaded = ref(0);
+const hasSearched = ref(false);
 const router = useRouter();
 
 const onSearch = async () => {
@@ -18,6 +19,7 @@ const onSearch = async () => {
 		loading.value = true;
 		const translatedQuery = await translateToEnglish(query.value);
 		await searchFood(translatedQuery);
+		hasSearched.value = true;
 
 		if (foodData.value) {
 			await Promise.all(
@@ -84,7 +86,7 @@ console.log("soy la food data", foodData);
 	<div class="relative z-0 h-full px-4 py-8 sm:px-8 sm:py-10">
 		<PageBackground />
 
-		<div class="relative mx-auto max-w-4xl">
+		<div class="relative max-w-4xl">
 			<AppBreadcrumb :label="$t('dataBase.title')" />
 
 			<div class="mb-8 flex items-center gap-4">
@@ -103,7 +105,7 @@ console.log("soy la food data", foodData);
 				</div>
 			</div>
 
-			<div class="flex w-full flex-col gap-2 rounded-lg border border-neutral-800 bg-neutral-900/60 p-4 sm:flex-row">
+			<div class="flex w-full max-w-xl flex-col gap-2 rounded-lg border border-neutral-800 bg-neutral-900/60 p-4 sm:flex-row">
 				<input
 					type="text"
 					v-model="query"
@@ -175,7 +177,7 @@ console.log("soy la food data", foodData);
 				</div>
 			</div>
 
-			<div v-else class="mt-8 text-center text-neutral-400">
+			<div v-else-if="hasSearched" class="mt-8 text-center text-neutral-400">
 				<p>{{ $t("dataBase.noResults") }}</p>
 			</div>
 

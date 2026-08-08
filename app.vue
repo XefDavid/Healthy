@@ -4,14 +4,25 @@ import "primeicons/primeicons.css";
 const route = useRoute();
 const FIXED_HEIGHT_ROUTES = ["/", "/running-calculator"];
 const isFixedHeight = computed(() => FIXED_HEIGHT_ROUTES.includes(route.path));
+
+const isSidebarOpen = useSidebarOpen();
 </script>
 
 <template>
 	<NuxtLayout>
-		<Topbar />
 		<AppSidebar />
+
+		<button
+			type="button"
+			@click="isSidebarOpen = true"
+			class="fixed left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-950/95 text-white backdrop-blur md:hidden"
+			:aria-label="$t('sidebar.openMenu')"
+		>
+			<i class="pi pi-bars text-lg"></i>
+		</button>
+
 		<div
-			class="flex flex-col pt-16 md:ml-64"
+			class="flex flex-col md:ml-64"
 			:class="isFixedHeight ? 'h-screen overflow-hidden' : 'min-h-screen'"
 		>
 			<div class="min-h-0 flex-1">

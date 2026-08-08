@@ -17,14 +17,14 @@ const closeMobile = () => {
 	<!-- Mobile drawer -->
 	<aside
 		v-if="isMobileOpen"
-		class="fixed left-0 top-16 z-40 flex h-[calc(100vh-4rem)] w-64 flex-col justify-between border-r border-neutral-800 bg-neutral-950 px-4 py-5 md:hidden"
+		class="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col justify-between border-r border-neutral-800 bg-neutral-950 px-4 py-5 md:hidden"
 	>
 		<SidebarContent />
 	</aside>
 
 	<!-- Desktop sidebar (always visible) -->
 	<aside
-		class="fixed left-0 top-16 z-40 hidden h-[calc(100vh-4rem)] w-64 flex-col justify-between border-r border-neutral-800 bg-neutral-950 px-4 py-5 md:flex"
+		class="fixed left-0 top-0 z-40 hidden h-screen w-64 flex-col justify-between border-r border-neutral-800 bg-neutral-950 px-4 py-5 md:flex"
 	>
 		<SidebarContent />
 	</aside>

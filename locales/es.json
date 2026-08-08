@@ -10,9 +10,6 @@
 		"comingSoon": "Próximamente",
 		"openMenu": "Abrir menú"
 	},
-	"topbar": {
-		"searchPlaceholder": "Buscar alimentos, recetas..."
-	},
 	"common": {
 		"back": "Atrás",
 		"search": "Buscar",
@@ -80,7 +77,8 @@
 		"dishNamePlaceholder": "Nombre del plato",
 		"resultsSubtitle": "Total de la receta",
 		"emptyState": "Añade ingredientes y calcula para ver el total aquí.",
-		"error": "No se pudo analizar la receta. Inténtalo de nuevo."
+		"error": "No se pudo analizar la receta. Inténtalo de nuevo.",
+		"lowQualityError": "No hemos reconocido alguno de los ingredientes. Prueba a escribirlo de forma más simple (ej. \"cordero\" en vez de \"cordero asado\")."
 	},
 	"recipeSuggester": {
 		"title": "¿Qué cocino hoy?",
@@ -98,7 +96,8 @@
 		"stepCaloriesTitle": "¿Cuántas calorías quieres quemar?",
 		"stepCaloriesSubtitle": "Escríbelas o llega aquí desde un resultado ya calculado.",
 		"caloriesPlaceholder": "Calorías (kcal)",
-		"stepWeightTitle": "Tu peso, ejercicio y ritmo",
+		"stepWeightTitle": "Tu peso",
+		"stepExerciseTitle": "Ejercicio y ritmo",
 		"exerciseLabel": "Tipo de ejercicio",
 		"exercise": {
 			"running": "Correr",
@@ -174,10 +173,14 @@
 	"nutritionResult": {
 		"title": "Tus resultados nutricionales",
 		"calories": "Calorías:",
+		"fiber": "Fibra:",
+		"sugar": "Azúcares:",
+		"sodium": "Sodio:",
 		"co2Emissions": "Emisiones totales de CO2:",
 		"co2Class": "Clase de emisión de CO2:",
 		"totalWeight": "Peso total:",
 		"dietLabels": "Etiquetas de dieta:",
+		"healthLabels": "Etiquetas de salud:",
 		"notAvailable": "N/D",
 		"unknownError": "Error desconocido."
 	},

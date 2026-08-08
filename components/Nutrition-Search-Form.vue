@@ -58,7 +58,7 @@ const redirectToResults = () => {
 <template>
 	<div class="flex w-full flex-col gap-6">
 		<div
-			class="flex flex-col sm:flex-row gap-2 justify-center items-center rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
+			class="flex w-full max-w-2xl flex-col sm:flex-row gap-2 justify-center items-center rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
 		>
 			<SelectNutrition
 				v-model:selectedQuantity="selectedQuantity"

@@ -10,9 +10,6 @@
 		"comingSoon": "Coming soon",
 		"openMenu": "Open menu"
 	},
-	"topbar": {
-		"searchPlaceholder": "Search foods, recipes..."
-	},
 	"common": {
 		"back": "Back",
 		"search": "Search",
@@ -80,7 +77,8 @@
 		"dishNamePlaceholder": "Dish name",
 		"resultsSubtitle": "Recipe total",
 		"emptyState": "Add ingredients and calculate to see the total here.",
-		"error": "Couldn't analyze the recipe. Please try again."
+		"error": "Couldn't analyze the recipe. Please try again.",
+		"lowQualityError": "We didn't recognize one of the ingredients. Try writing it more simply (e.g. \"lamb\" instead of \"roast lamb\")."
 	},
 	"recipeSuggester": {
 		"title": "What should I cook today?",
@@ -98,7 +96,8 @@
 		"stepCaloriesTitle": "How many calories do you want to burn?",
 		"stepCaloriesSubtitle": "Type them in, or arrive here from an already calculated result.",
 		"caloriesPlaceholder": "Calories (kcal)",
-		"stepWeightTitle": "Your weight, exercise and pace",
+		"stepWeightTitle": "Your weight",
+		"stepExerciseTitle": "Exercise and pace",
 		"exerciseLabel": "Exercise type",
 		"exercise": {
 			"running": "Running",
@@ -174,10 +173,14 @@
 	"nutritionResult": {
 		"title": "Your Nutritional Results",
 		"calories": "Calories:",
+		"fiber": "Fiber:",
+		"sugar": "Sugar:",
+		"sodium": "Sodium:",
 		"co2Emissions": "Total CO2 Emissions:",
 		"co2Class": "CO2 Emission Class:",
 		"totalWeight": "Total Weight:",
 		"dietLabels": "Diet Labels:",
+		"healthLabels": "Health Labels:",
 		"notAvailable": "N/A",
 		"unknownError": "Unknown error."
 	},

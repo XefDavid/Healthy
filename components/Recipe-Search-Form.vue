@@ -11,6 +11,8 @@ const placeholder = "All recipes";
 const { translateToEnglish } = useTranslateQuery();
 
 const submitSearch = async () => {
+	if (!query.value.trim()) return;
+
 	const translatedQuery = await translateToEnglish(query.value);
 
 	router.push({
@@ -35,15 +37,16 @@ const clearPalceHolder = () => {
 
 <template>
 	<div
-		class="flex w-full flex-col gap-2 rounded-lg border border-neutral-800 bg-neutral-900/60 p-4 sm:flex-row"
+		class="flex w-full max-w-xl flex-col items-center gap-2 rounded-lg border border-neutral-800 bg-neutral-900/60 p-4"
 	>
 		<InputText
-			class="input w-full !min-w-0 sm:mb-0 text-center"
+			class="input w-full !min-w-0 text-center"
 			type="text"
 			v-model="query"
 			:placeholder="$t('recipeFinder.placeholder')"
 			@focus="clearPalceHolder"
 			@blur="clearPalceHolder"
+			@keyup.enter="submitSearch"
 		/>
 		<Button
 			:label="$t('common.search')"

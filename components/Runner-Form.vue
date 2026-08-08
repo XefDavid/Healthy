@@ -4,7 +4,7 @@ import { calculateExerciseTime, EXERCISES } from "~/utils/exerciseCalculator";
 
 const props = defineProps<{ initialCalories?: string }>();
 
-type Step = "calories" | "weight" | "animating" | "result";
+type Step = "calories" | "weight" | "exercise" | "animating" | "result";
 const step = ref<Step>("calories");
 
 const calories = ref(props.initialCalories ?? "");
@@ -49,8 +49,12 @@ const goToWeightStep = () => {
 	step.value = "weight";
 };
 
-const calculate = () => {
+const goToExerciseStep = () => {
 	if (!isWeightValid.value) return;
+	step.value = "exercise";
+};
+
+const calculate = () => {
 	step.value = "animating";
 
 	setTimeout(() => {
@@ -76,7 +80,7 @@ const reset = () => {
 
 <template>
 	<div
-		class="mx-auto flex w-full max-w-md max-h-full flex-col gap-4 overflow-y-auto rounded-lg border border-neutral-800 bg-neutral-900/60 p-6"
+		class="flex w-full max-w-md flex-col gap-4 rounded-lg border border-neutral-800 bg-neutral-900/60 p-6"
 	>
 		<!-- Paso 1: calorías -->
 		<div v-if="step === 'calories'" class="flex flex-col gap-4">
@@ -107,12 +111,46 @@ const reset = () => {
 			</button>
 		</div>
 
-		<!-- Paso 2: peso + ritmo -->
+		<!-- Paso 2: peso -->
 		<div v-else-if="step === 'weight'" class="flex flex-col gap-4">
 			<div class="flex flex-col items-center gap-2 text-center">
 				<i class="pi pi-user text-3xl text-lime-400"></i>
 				<h2 class="text-lg font-semibold text-white">
 					{{ $t("runner.stepWeightTitle") }}
+				</h2>
+			</div>
+			<input
+				type="number"
+				min="1"
+				v-model="weightKg"
+				:placeholder="$t('calorieCalculator.weight')"
+				class="input w-full !min-w-0 text-center text-lg"
+				@keyup.enter="goToExerciseStep"
+			/>
+			<div class="flex gap-2">
+				<button
+					@click="step = 'calories'"
+					class="h-[44px] w-12 shrink-0 rounded-lg border border-neutral-700 bg-neutral-800 text-white transition hover:border-lime-500/50"
+				>
+					<i class="pi pi-arrow-left"></i>
+				</button>
+				<button
+					@click="goToExerciseStep"
+					class="h-[44px] w-full rounded-lg bg-lime-500 text-sm font-medium text-neutral-950 transition hover:bg-lime-400 disabled:bg-neutral-800 disabled:text-neutral-500 disabled:opacity-40"
+					:disabled="!isWeightValid"
+				>
+					{{ $t("common.continue") }}
+					<i class="pi pi-arrow-right ml-2"></i>
+				</button>
+			</div>
+		</div>
+
+		<!-- Paso 3: ejercicio + ritmo -->
+		<div v-else-if="step === 'exercise'" class="flex flex-col gap-4">
+			<div class="flex flex-col items-center gap-2 text-center">
+				<i class="pi pi-map text-3xl text-lime-400"></i>
+				<h2 class="text-lg font-semibold text-white">
+					{{ $t("runner.stepExerciseTitle") }}
 				</h2>
 			</div>
 
@@ -137,14 +175,6 @@ const reset = () => {
 				</div>
 			</div>
 
-			<input
-				type="number"
-				min="1"
-				v-model="weightKg"
-				:placeholder="$t('calorieCalculator.weight')"
-				class="input w-full !min-w-0 text-center text-lg"
-			/>
-
 			<div class="flex flex-col gap-2">
 				<p class="text-sm text-neutral-400">{{ $t("runner.intensityLabel") }}</p>
 				<div class="grid grid-cols-3 gap-2">
@@ -167,22 +197,21 @@ const reset = () => {
 
 			<div class="flex gap-2">
 				<button
-					@click="step = 'calories'"
+					@click="step = 'weight'"
 					class="h-[44px] w-12 shrink-0 rounded-lg border border-neutral-700 bg-neutral-800 text-white transition hover:border-lime-500/50"
 				>
 					<i class="pi pi-arrow-left"></i>
 				</button>
 				<button
 					@click="calculate"
-					class="h-[44px] w-full rounded-lg bg-lime-500 text-sm font-medium text-neutral-950 transition hover:bg-lime-400 disabled:bg-neutral-800 disabled:text-neutral-500 disabled:opacity-40"
-					:disabled="!isWeightValid"
+					class="h-[44px] w-full rounded-lg bg-lime-500 text-sm font-medium text-neutral-950 transition hover:bg-lime-400"
 				>
 					<i class="pi pi-calculator mr-2"></i>{{ $t("common.calculate") }}
 				</button>
 			</div>
 		</div>
 
-		<!-- Paso 3: animación -->
+		<!-- Paso 4: animación -->
 		<div
 			v-else-if="step === 'animating'"
 			class="flex flex-col items-center gap-6 py-6"
@@ -193,7 +222,7 @@ const reset = () => {
 			</div>
 		</div>
 
-		<!-- Paso 4: resultado -->
+		<!-- Paso 5: resultado -->
 		<div v-else-if="step === 'result' && result" class="flex flex-col gap-5">
 			<div class="flex flex-col items-center gap-2 text-center">
 				<i class="pi pi-flag-fill text-3xl text-lime-400"></i>

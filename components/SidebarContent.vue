@@ -40,6 +40,23 @@ const closeMobile = () => {
 
 <template>
 	<div class="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto">
+		<nuxt-link to="/" class="flex shrink-0 items-center gap-2">
+			<div
+				class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-lime-400 to-green-600"
+			>
+				<i class="pi pi-apple text-base text-neutral-950"></i>
+			</div>
+			<div class="leading-tight">
+				<div class="flex items-baseline gap-1 text-sm font-bold tracking-wide">
+					<span class="text-white">{{ $t("home.brandFood") }}</span>
+					<span class="text-lime-400">{{ $t("home.brandPlanning") }}</span>
+				</div>
+				<div class="text-[9px] tracking-[0.25em] text-neutral-500">
+					{{ $t("home.brandTagline") }}
+				</div>
+			</div>
+		</nuxt-link>
+
 		<div class="relative">
 			<button
 				type="button"

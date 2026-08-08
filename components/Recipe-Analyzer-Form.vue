@@ -62,6 +62,7 @@ const removeIngredient = (index: number) => {
 
 const calculate = async () => {
 	if (!canCalculate.value) return;
+	dishName.value = await translateToEnglish(dishName.value);
 	await analyzeRecipe(dishName.value, ingredientsList.value);
 };
 
@@ -141,7 +142,11 @@ const goToRunner = () => {
 			</button>
 
 			<div v-if="error" class="text-red-500 text-sm text-center">
-				{{ $t("recipeAnalyzer.error") }}
+				{{
+					error === "low_quality"
+						? $t("recipeAnalyzer.lowQualityError")
+						: $t("recipeAnalyzer.error")
+				}}
 			</div>
 		</div>
 

@@ -6,7 +6,7 @@ import RecipeSearchForm from "./Recipe-Search-Form.vue";
 	<div class="relative z-0 h-full px-4 py-8 sm:px-8 sm:py-10">
 		<PageBackground />
 
-		<div class="relative mx-auto max-w-3xl">
+		<div class="relative max-w-3xl">
 			<AppBreadcrumb :label="$t('recipeFinder.title')" />
 
 			<div class="mb-8 flex items-center gap-4">

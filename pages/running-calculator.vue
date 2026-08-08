@@ -12,7 +12,7 @@ const initialCalories = computed(() => {
 	<div class="relative z-0 h-full px-4 py-4 sm:px-8 sm:py-6">
 		<PageBackground />
 
-		<div class="relative mx-auto flex h-full max-w-3xl flex-col">
+		<div class="relative flex h-full max-w-3xl flex-col">
 			<AppBreadcrumb :label="$t('runner.title')" />
 
 			<div class="mb-4 flex items-center gap-4">
@@ -32,7 +32,7 @@ const initialCalories = computed(() => {
 				</div>
 			</div>
 
-			<div class="flex min-h-0 flex-1 items-center justify-center">
+			<div class="flex min-h-0 flex-1 items-center">
 				<RunnerForm :initial-calories="initialCalories" />
 			</div>
 		</div>
