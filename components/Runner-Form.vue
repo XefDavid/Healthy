@@ -169,7 +169,7 @@ const reset = () => {
 								: 'border-neutral-700 bg-neutral-800 text-neutral-300 hover:border-lime-500/50'
 						"
 					>
-						<i :class="option.icon"></i>
+						<span class="text-lg leading-none">{{ option.icon }}</span>
 						{{ $t(option.label) }}
 					</button>
 				</div>

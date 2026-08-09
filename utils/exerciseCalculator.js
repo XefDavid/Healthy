@@ -4,7 +4,7 @@
 export const EXERCISES = {
 	running: {
 		label: "runner.exercise.running",
-		icon: "pi pi-forward",
+		icon: "🏃",
 		intensities: {
 			light: { speedKmh: 8, met: 8.3 },
 			moderate: { speedKmh: 10, met: 9.8 },
@@ -13,7 +13,7 @@ export const EXERCISES = {
 	},
 	walking: {
 		label: "runner.exercise.walking",
-		icon: "pi pi-user",
+		icon: "🚶",
 		intensities: {
 			light: { speedKmh: 4.8, met: 3.0 },
 			moderate: { speedKmh: 5.6, met: 3.8 },
@@ -22,7 +22,7 @@ export const EXERCISES = {
 	},
 	cycling: {
 		label: "runner.exercise.cycling",
-		icon: "pi pi-refresh",
+		icon: "🚴",
 		intensities: {
 			light: { speedKmh: 14, met: 4.0 },
 			moderate: { speedKmh: 18, met: 8.0 },
@@ -31,7 +31,7 @@ export const EXERCISES = {
 	},
 	swimming: {
 		label: "runner.exercise.swimming",
-		icon: "pi pi-circle",
+		icon: "🏊",
 		intensities: {
 			light: { speedKmh: 2, met: 6.0 },
 			moderate: { speedKmh: 2.5, met: 8.3 },

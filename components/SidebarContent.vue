@@ -10,11 +10,11 @@ const navItems = [
 	{ to: "/", icon: "pi pi-home", label: "sidebar.home" },
 	{ to: "/recipe-finder", icon: "pi pi-globe", label: "sidebar.recipes" },
 	{ to: "/nutrition-finder", icon: "pi pi-apple", label: "sidebar.nutrition" },
-	{ to: "/data-base-nutrition", icon: "pi pi-chart-bar", label: "sidebar.foods" },
+	{ to: "/data-base-nutrition", icon: "pi pi-search", label: "sidebar.foods" },
 	{ to: "/recipe-analyzer", icon: "pi pi-calculator", label: "home.analyzerButton" },
 	{ to: "/calorie-calculator", icon: "pi pi-gauge", label: "home.calorieCalculatorButton" },
-	{ to: "/recipe-suggester", icon: "pi pi-inbox", label: "home.suggesterButton" },
-	{ to: "/running-calculator", icon: "pi pi-map", label: "home.runnerButton" },
+	{ to: "/recipe-suggester", icon: "pi pi-lightbulb", label: "home.suggesterButton" },
+	{ to: "/running-calculator", icon: "🏋️", label: "home.runnerButton" },
 ];
 
 const comingSoonItems = [
@@ -96,7 +96,8 @@ const closeMobile = () => {
 						: 'text-neutral-300 hover:bg-neutral-900 hover:text-white'
 				"
 			>
-				<i :class="item.icon"></i>
+				<i v-if="item.icon.startsWith('pi ')" :class="item.icon"></i>
+				<span v-else class="inline-flex h-4 w-4 items-center justify-center grayscale text-lg leading-none">{{ item.icon }}</span>
 				{{ $t(item.label) }}
 			</nuxt-link>
 
