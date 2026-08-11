@@ -18,12 +18,6 @@ const navItems = [
 	{ to: "/my-recipes", icon: "pi pi-bookmark", label: "sidebar.myRecipes" },
 ];
 
-const comingSoonItems = [
-	{ icon: "pi pi-star", label: "sidebar.favorites" },
-	{ icon: "pi pi-history", label: "sidebar.history" },
-	{ icon: "pi pi-cog", label: "sidebar.settings" },
-];
-
 const availableLocales = [
 	{ code: "es", label: "Español" },
 	{ code: "en", label: "English" },
@@ -101,21 +95,6 @@ const closeMobile = () => {
 				<span v-else class="inline-flex h-4 w-4 items-center justify-center grayscale text-lg leading-none">{{ item.icon }}</span>
 				{{ $t(item.label) }}
 			</nuxt-link>
-
-			<div class="my-2 h-px bg-neutral-800"></div>
-
-			<div
-				v-for="item in comingSoonItems"
-				:key="item.label"
-				class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-neutral-600 cursor-not-allowed"
-				:title="$t('sidebar.comingSoon')"
-			>
-				<i :class="item.icon"></i>
-				{{ $t(item.label) }}
-				<span class="ml-auto text-[10px] uppercase tracking-wide text-neutral-700">{{
-					$t("sidebar.comingSoon")
-				}}</span>
-			</div>
 		</nav>
 	</div>
 </template>

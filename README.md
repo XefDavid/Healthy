@@ -1,6 +1,6 @@
 # Healthy 🥗
 
-Aplicación web construida con **Nuxt 3** para planificar tu alimentación: buscar recetas, consultar información nutricional, analizar tus propias recetas, calcular tus calorías diarias, recibir sugerencias de recetas con lo que tienes a mano y calcular cuánto ejercicio hace falta para quemar unas calorías dadas. Interfaz de panel/dashboard con barra lateral fija, tema oscuro, totalmente responsiva y disponible en **español e inglés**.
+Aplicación web construida con **Nuxt 3** para planificar tu alimentación: buscar recetas, consultar información nutricional, analizar tus propias recetas, calcular tus calorías diarias, recibir sugerencias de recetas con lo que tienes a mano, calcular cuánto ejercicio hace falta para quemar unas calorías dadas, y adaptar cualquier receta encontrada a un documento propio (traducido, escalado por raciones, con coste y notas) guardado en "Mis Recetas". Interfaz de panel/dashboard con barra lateral fija, a pantalla completa en cada herramienta, tema oscuro, totalmente responsiva y disponible en **español e inglés**.
 
 ## Índice
 
@@ -24,7 +24,13 @@ Aplicación web construida con **Nuxt 3** para planificar tu alimentación: busc
 - ⚖️ **Calculadora de calorías diarias** (`calorie-calculator`) — calcula tu metabolismo basal (fórmula Mifflin-St Jeor), calorías de mantenimiento y un reparto de macros sugerido según tu objetivo. 100% cálculo local, sin depender de ninguna API externa.
 - 🍲 **¿Qué cocino hoy?** (`recipe-suggester`) — dime hasta 5 ingredientes que tengas a mano y te sugiero recetas que los usan.
 - 🏃 **¿Cómo lo quemo?** (`running-calculator`) — asistente en pasos (calorías → peso → tipo de ejercicio y ritmo → resultado) que calcula minutos y kilómetros necesarios para quemar unas calorías dadas corriendo, caminando, en bici o nadando, usando valores MET estándar. 100% cálculo local.
-- 🧭 **Barra lateral fija** con navegación a las 7 herramientas, selector de idioma y secciones "Próximamente" (Favoritos, Historial, Ajustes); en móvil se abre como panel deslizante desde un botón flotante.
+- 📌 **Añadir a Mis Recetas** (`adapt-recipe`, `my-recipes`) — convierte cualquier receta encontrada en "Recetas" o "¿Qué cocino hoy?" en un documento propio:
+  - Traducción automática inglés → español del título e ingredientes (API gratuita MyMemory, sin key), editable en el momento antes de guardar.
+  - Escandallo: recalcula la cantidad de cada ingrediente al cambiar el número de raciones, con redondeo distinto para medidas continuas (gramos, tazas...) y para piezas (huevos, dientes de ajo...); los ingredientes sin cantidad reconocible (p. ej. "sal al gusto") se marcan como tal en vez de escalarse a 0.
+  - Coste opcional por ingrediente en tres modos (€/kg, €/paquete + gramos, €/unidad), usando el peso en gramos que estima Edamam para cada ingrediente (no la cantidad mostrada, que puede venir en tazas o piezas) — total y coste por ración, recalculado con las raciones.
+  - Notas libres y guardado real en `localStorage` (sección **Mis Recetas**), con vista de lista y de detalle que reutiliza el mismo formulario para seguir editando lo ya guardado.
+- 🧭 **Barra lateral fija** con navegación a las 8 herramientas y selector de idioma; en móvil se abre como panel deslizante desde un botón flotante.
+- 🖥️ **Cada herramienta a pantalla completa**, sin scroll de página — el contenido largo (listas de resultados, formularios con muchos campos) hace scroll dentro de su propia tarjeta, y el fondo decorativo cubre siempre toda la pantalla.
 - 🌗 **Tema oscuro** consistente en toda la app, con diseño responsivo (mobile / tablet / desktop) y fondo decorativo en las páginas de herramientas.
 - 🌐 **Español / Inglés**: interfaz completa traducida (`@nuxtjs/i18n`), con traducción automática de las búsquedas y de los resultados que vienen en inglés desde Edamam (diccionario propio + fallback a MyMemory API), independiente del idioma activo de la interfaz.
 - 🦶 **Footer global** con atribución del autor y créditos a Edamam, presente en todas las páginas.
@@ -39,6 +45,7 @@ Aplicación web construida con **Nuxt 3** para planificar tu alimentación: busc
 | i18n              | [@nuxtjs/i18n](https://i18n.nuxtjs.org/) (español / inglés) |
 | HTTP Client       | [Axios](https://axios-http.com/) + `$fetch` (ofetch, integrado en Nuxt) |
 | APIs externas     | [Edamam Recipe API](https://developer.edamam.com/edamam-recipe-api), [Edamam Food Database API](https://developer.edamam.com/food-database-api), [Edamam Nutrition Analysis API](https://developer.edamam.com/edamam-nutrition-api) (incluye Recipe Analysis), [MyMemory Translation API](https://mymemory.translated.net/doc/spec.php) (gratuita, sin API key) |
+| Persistencia      | `localStorage` del navegador (recetas guardadas en "Mis Recetas"), sin backend ni base de datos |
 
 ## Estructura del proyecto
 
@@ -53,6 +60,7 @@ Healthy/
 │   ├── AppLogo.vue                  # Logo reutilizable (badge + wordmark)
 │   ├── AppSidebar.vue               # Barra lateral fija (desktop) + drawer (móvil)
 │   ├── SidebarContent.vue           # Contenido de la barra: logo, idioma, navegación
+│   ├── Adapt-Recipe-Form.vue        # Formulario de "Añadir a Mis Recetas" (traducción, escandallo, coste, notas)
 │   ├── Calorie-Calculator-Form.vue  # Formulario de la calculadora de calorías
 │   ├── Footer.vue                   # Footer global (autor, Edamam, aviso de portafolio)
 │   ├── Header.vue                   # Wrapper del buscador de recetas
@@ -60,23 +68,28 @@ Healthy/
 │   ├── Nutrition-Search-Form.vue    # Formulario de búsqueda nutricional por ingredientes
 │   ├── PageBackground.vue           # Fondo decorativo compartido por las páginas de herramientas
 │   ├── Recipe-Analyzer-Form.vue     # Formulario de análisis de receta completa
+│   ├── RecipeCard.vue               # Tarjeta de receta reutilizable (resultados + botón "Añadir a Mis Recetas")
 │   ├── Recipe-Search-Form.vue       # Formulario de búsqueda de recetas
 │   ├── Recipe-Suggester-Form.vue    # Formulario de "¿Qué cocino hoy?"
 │   ├── Runner-Form.vue              # Asistente en pasos de "¿Cómo lo quemo?"
 │   ├── Select-Nutrition.vue         # Selector de cantidad/medida/ingrediente reutilizable
 │   └── Selects-Recipes.vue          # Barra de filtros de recetas
 ├── composables/
+│   ├── useAdaptRecipeDraft.js       # Estado compartido: receta cruda de Edamam elegida para adaptar
 │   ├── useEdamam.js                 # Búsqueda de recetas (Recipe API)
 │   ├── useEdamamDataBase.js         # Búsqueda de alimentos + nutrientes (Food Database API)
 │   ├── useEdamamIdRecipe.js         # Detalle de una receta por URI/ID
 │   ├── useEdamamRecipeAnalysis.js   # Análisis nutricional de una receta completa
+│   ├── useSavedRecipes.js           # CRUD reactivo de "Mis Recetas" sobre localStorage
 │   ├── useSidebarState.js           # Estado compartido (abierto/cerrado) del drawer móvil
-│   └── useTranslateQuery.js         # Traducción ES↔EN de búsquedas y resultados
+│   ├── useTranslateQuery.js         # Traducción ES↔EN de búsquedas y resultados
+│   └── useTranslateRecipe.js        # Traducción por lotes (título/ingredientes/pasos) para Mis Recetas
 ├── locales/
 │   ├── en.json                      # Textos de la interfaz en inglés
 │   └── es.json                      # Textos de la interfaz en español
 ├── pages/
 │   ├── index.vue                    # Home
+│   ├── adapt-recipe.vue             # "Añadir a Mis Recetas" — receta recién adaptada (aún sin guardar)
 │   ├── recipe-finder.vue            # Buscador de recetas
 │   ├── recipe-results.vue           # Resultados de recetas
 │   ├── nutrition-finder.vue         # Buscador de información nutricional
@@ -86,12 +99,19 @@ Healthy/
 │   ├── recipe-analyzer.vue          # Analizador de recetas propias
 │   ├── calorie-calculator.vue       # Calculadora de calorías diarias
 │   ├── recipe-suggester.vue         # "¿Qué cocino hoy?"
-│   └── running-calculator.vue       # "¿Cómo lo quemo?"
+│   ├── running-calculator.vue       # "¿Cómo lo quemo?"
+│   └── my-recipes/
+│       ├── index.vue                # Listado de recetas guardadas
+│       └── [id].vue                 # Detalle/edición de una receta guardada (ruta dinámica)
+├── types/
+│   └── recipe.ts                    # Interfaces RecetaAdaptada / IngredienteAdaptado
 ├── utils/
 │   ├── calorieCalculator.js         # Fórmula Mifflin-St Jeor + TDEE + macros
 │   ├── dietLabels.js                # Traducción de etiquetas de dieta y de salud de Edamam
 │   ├── exerciseCalculator.js        # Valores MET por ejercicio/ritmo para "¿Cómo lo quemo?"
-│   └── foodDictionary.js            # Diccionario ES→EN de alimentos comunes
+│   ├── foodDictionary.js            # Diccionario ES→EN de alimentos comunes
+│   ├── measureLabels.js             # Traducción de medidas de Edamam (cup, tablespoon, "<unit>"...)
+│   └── recetaAdaptada.js            # Modelo, escandallo y cálculo de coste de "Mis Recetas"
 ├── public/                          # Archivos estáticos servidos directamente (favicon, robots.txt)
 ├── nuxt.config.ts                   # Configuración de Nuxt (módulos, i18n, tema PrimeVue, runtimeConfig)
 ├── tailwind.config.js               # Configuración de Tailwind CSS
@@ -199,7 +219,7 @@ Consulta la [documentación de despliegue de Nuxt](https://nuxt.com/docs/getting
 
 | Ruta                     | Descripción                                                        |
 | ------------------------ | ------------------------------------------------------------------- |
-| `/`                       | Home con acceso a las 7 herramientas                                |
+| `/`                       | Home con acceso a las 8 herramientas                                |
 | `/recipe-finder`          | Formulario de búsqueda de recetas                                    |
 | `/recipe-results`         | Listado de recetas resultantes de la búsqueda, con filtros          |
 | `/nutrition-finder`       | Formulario de búsqueda de información nutricional por ingredientes  |
@@ -210,6 +230,9 @@ Consulta la [documentación de despliegue de Nuxt](https://nuxt.com/docs/getting
 | `/calorie-calculator`     | Calculadora de calorías diarias y reparto de macros                 |
 | `/recipe-suggester`       | "¿Qué cocino hoy?" — sugerencia de recetas a partir de ingredientes  |
 | `/running-calculator`     | "¿Cómo lo quemo?" — minutos/km de ejercicio para quemar X calorías (acepta `?calories=` para prellenar) |
+| `/adapt-recipe`           | "Añadir a Mis Recetas" sobre la última receta elegida en un resultado de búsqueda (aún no guardada) |
+| `/my-recipes`             | Listado de recetas guardadas en `localStorage`                       |
+| `/my-recipes/[id]`        | Detalle/edición de una receta guardada, reutiliza `Adapt-Recipe-Form.vue` sin re-traducir |
 
 ## Internacionalización (ES/EN)
 
@@ -217,6 +240,8 @@ Consulta la [documentación de despliegue de Nuxt](https://nuxt.com/docs/getting
 - Como las APIs de Edamam solo entienden inglés, `composables/useTranslateQuery.js` traduce automáticamente lo que escribes en español antes de buscar, **sin importar el idioma activo de la interfaz** (para no depender de que el usuario cambie el selector antes de escribir en español): primero consulta [`utils/foodDictionary.js`](utils/foodDictionary.js) (diccionario propio de ~150 alimentos comunes, fiable e instantáneo) y solo si no encuentra coincidencia cae a la API gratuita de MyMemory.
 - Los resultados que vienen en inglés desde Edamam (títulos de recetas, nombres de alimentos) se traducen de vuelta al español con el mismo composable, esta traducción sí respeta el idioma activo de la interfaz.
 - Las etiquetas de dieta y de salud (`LOW_FAT`, `LOW_SODIUM`, `GLUTEN_FREE`, etc.) se traducen mediante un mapeo fijo en [`utils/dietLabels.js`](utils/dietLabels.js), ya que son un enum cerrado y no necesitan traducción automática.
+- Las medidas que da Edamam (`cup`, `tablespoon`, el literal `<unit>` para ingredientes contados por pieza, etc.) se traducen igual mediante un mapeo fijo en [`utils/measureLabels.js`](utils/measureLabels.js), reutilizando el mismo diccionario `selectNutrition.measures` de los locales.
+- "Añadir a Mis Recetas" usa `translateTextStrict` (variante de `useTranslateQuery.js` que relanza el error en vez de silenciarlo) para poder avisar de forma discreta si alguna traducción concreta no estuvo disponible, dejando esa entrada en inglés y editable a mano en vez de romper el resto del formulario.
 
 ## Scripts disponibles
 
