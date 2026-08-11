@@ -36,18 +36,17 @@ export default defineNuxtConfig({
 			meta: [{ name: "color-scheme", content: "dark" }],
 		},
 	},
+	// Sin `.public`: solo accesible desde server/api/*, nunca se envía al
+	// navegador (a diferencia de runtimeConfig.public, que sí viaja dentro
+	// del bundle JS y sería visible para cualquier visitante).
 	runtimeConfig: {
-		public: {
-			edamamRecipesAppId: process.env.NUXT_EDAMAM_RECIPES_APP_ID,
-			edamamRecipesAppKey: process.env.NUXT_EDAMAM_RECIPES_APP_KEY,
+		edamamRecipesAppId: process.env.NUXT_EDAMAM_RECIPES_APP_ID,
+		edamamRecipesAppKey: process.env.NUXT_EDAMAM_RECIPES_APP_KEY,
 
-			edamamDatabaseFoodAppId: process.env.NUXT_EDAMAM_DATABASE_FOOD_APP_ID,
-			edamamDatabaseFoodAppKey: process.env.NUXT_EDAMAM_DATABASE_FOOD_APP_KEY,
+		edamamDatabaseFoodAppId: process.env.NUXT_EDAMAM_DATABASE_FOOD_APP_ID,
+		edamamDatabaseFoodAppKey: process.env.NUXT_EDAMAM_DATABASE_FOOD_APP_KEY,
 
-			edamamNutritionAppId: process.env.NUXT_EDAMAM_NUTRITION_APP_ID,
-			edamamNutritionAppKey: process.env.NUXT_EDAMAM_NUTRITION_APP_KEY,
-
-			pexelsApiKey: process.env.NUXT_PEXELS_API_KEY,
-		},
+		edamamNutritionAppId: process.env.NUXT_EDAMAM_NUTRITION_APP_ID,
+		edamamNutritionAppKey: process.env.NUXT_EDAMAM_NUTRITION_APP_KEY,
 	},
 });

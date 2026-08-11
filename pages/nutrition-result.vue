@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { useRuntimeConfig } from "#app";
 import { translateDietLabel, translateHealthLabel } from "~/utils/dietLabels";
 
 const { t } = useI18n();
@@ -18,27 +17,16 @@ const fetchNutrition = async () => {
 	error.value = "";
 	nutritionData.value = [];
 
-	const config = useRuntimeConfig();
-
 	try {
 		const ingredients = Array.isArray(route.query.ingredients)
 			? route.query.ingredients
 			: [route.query.ingredients];
 
 		for (const ingredient of ingredients as string[]) {
-			const appId = config.public.edamamNutritionAppId;
-			const appKey = config.public.edamamNutritionAppKey;
-			const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(
-				ingredient
-			)}`;
+			const data = await $fetch("/api/edamam-nutrition-data", {
+				params: { ingr: ingredient },
+			});
 
-			const response = await fetch(url);
-			if (!response.ok) {
-				const errorMessage = await response.text();
-				throw new Error(`API query error: ${errorMessage}`);
-			}
-
-			const data = await response.json();
 			if (data.totalNutrients && Object.keys(data.totalNutrients).length > 0) {
 				nutritionData.value.push({
 					ingredient,

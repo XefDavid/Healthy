@@ -1,6 +1,4 @@
 export const useEdamamRecipeAnalysis = () => {
-	const config = useRuntimeConfig();
-
 	/** @type {import("vue").Ref<any | null>} */
 	const result = ref(null);
 	const loading = ref(false);
@@ -17,17 +15,10 @@ export const useEdamamRecipeAnalysis = () => {
 		result.value = null;
 
 		try {
-			const response = await $fetch(
-				"https://api.edamam.com/api/nutrition-details",
-				{
-					method: "POST",
-					params: {
-						app_id: config.public.edamamNutritionAppId,
-						app_key: config.public.edamamNutritionAppKey,
-					},
-					body: { title, ingr: ingredients },
-				}
-			);
+			const response = await $fetch("/api/edamam-analyze-recipe", {
+				method: "POST",
+				body: { title, ingr: ingredients },
+			});
 
 			if (!response?.totalNutrients || !response.calories) {
 				error.value = "no_data";

@@ -10,6 +10,7 @@ Aplicación web construida con **Nuxt 3** para planificar tu alimentación: busc
 - [Requisitos previos](#requisitos-previos)
 - [Instalación](#instalación)
 - [Variables de entorno](#variables-de-entorno)
+- [Seguridad: claves de API](#seguridad-claves-de-api)
 - [Uso](#uso)
 - [Rutas de la aplicación](#rutas-de-la-aplicación)
 - [Internacionalización (ES/EN)](#internacionalización-esen)
@@ -43,7 +44,8 @@ Aplicación web construida con **Nuxt 3** para planificar tu alimentación: busc
 | UI Library        | [PrimeVue 4](https://primevue.org/) + [PrimeIcons](https://primevue.org/icons/) |
 | Estilos           | [Tailwind CSS](https://tailwindcss.com/) + [PrimeFlex](https://primeflex.org/) |
 | i18n              | [@nuxtjs/i18n](https://i18n.nuxtjs.org/) (español / inglés) |
-| HTTP Client       | [Axios](https://axios-http.com/) + `$fetch` (ofetch, integrado en Nuxt) |
+| HTTP Client       | `$fetch` (ofetch, integrado en Nuxt) |
+| Backend ligero    | Rutas [Nitro](https://nitro.unjs.io/) en `server/api/` — proxies que ocultan las claves de Edamam del navegador (ver [Seguridad](#seguridad-claves-de-api)) |
 | APIs externas     | [Edamam Recipe API](https://developer.edamam.com/edamam-recipe-api), [Edamam Food Database API](https://developer.edamam.com/food-database-api), [Edamam Nutrition Analysis API](https://developer.edamam.com/edamam-nutrition-api) (incluye Recipe Analysis), [MyMemory Translation API](https://mymemory.translated.net/doc/spec.php) (gratuita, sin API key) |
 | Persistencia      | `localStorage` del navegador (recetas guardadas en "Mis Recetas"), sin backend ni base de datos |
 
@@ -76,10 +78,9 @@ Healthy/
 │   └── Selects-Recipes.vue          # Barra de filtros de recetas
 ├── composables/
 │   ├── useAdaptRecipeDraft.js       # Estado compartido: receta cruda de Edamam elegida para adaptar
-│   ├── useEdamam.js                 # Búsqueda de recetas (Recipe API)
-│   ├── useEdamamDataBase.js         # Búsqueda de alimentos + nutrientes (Food Database API)
-│   ├── useEdamamIdRecipe.js         # Detalle de una receta por URI/ID
-│   ├── useEdamamRecipeAnalysis.js   # Análisis nutricional de una receta completa
+│   ├── useEdamam.js                 # Búsqueda de recetas (llama a server/api/edamam-recipes)
+│   ├── useEdamamDataBase.js         # Búsqueda de alimentos + nutrientes (server/api/edamam-food-*)
+│   ├── useEdamamRecipeAnalysis.js   # Análisis nutricional de una receta completa (server/api/edamam-analyze-recipe)
 │   ├── useSavedRecipes.js           # CRUD reactivo de "Mis Recetas" sobre localStorage
 │   ├── useSidebarState.js           # Estado compartido (abierto/cerrado) del drawer móvil
 │   ├── useTranslateQuery.js         # Traducción ES↔EN de búsquedas y resultados
@@ -87,6 +88,13 @@ Healthy/
 ├── locales/
 │   ├── en.json                      # Textos de la interfaz en inglés
 │   └── es.json                      # Textos de la interfaz en español
+├── server/
+│   └── api/                         # Proxies a Edamam: las claves nunca llegan al navegador
+│       ├── edamam-recipes.get.ts          # Recipe Search API
+│       ├── edamam-food-search.get.ts      # Food Database API (parser)
+│       ├── edamam-food-nutrients.post.ts  # Food Database API (nutrientes)
+│       ├── edamam-analyze-recipe.post.ts  # Nutrition/Recipe Analysis API
+│       └── edamam-nutrition-data.get.ts   # Nutrition Analysis API (un ingrediente)
 ├── pages/
 │   ├── index.vue                    # Home
 │   ├── adapt-recipe.vue             # "Añadir a Mis Recetas" — receta recién adaptada (aún sin guardar)
@@ -157,9 +165,15 @@ NUXT_EDAMAM_NUTRITION_APP_ID=
 NUXT_EDAMAM_NUTRITION_APP_KEY=
 ```
 
-Estas variables se exponen en `runtimeConfig.public` dentro de [`nuxt.config.ts`](nuxt.config.ts) y son consumidas por los composables en `composables/`. La traducción automática de búsquedas usa la API pública de MyMemory, que no requiere API key.
+Estas variables se leen en `runtimeConfig` (privado, **sin** `.public`) dentro de [`nuxt.config.ts`](nuxt.config.ts), y solo las usan las rutas de servidor en `server/api/edamam-*.ts` — nunca un composable o página del cliente directamente. La traducción automática de búsquedas usa la API pública de MyMemory, que no requiere API key.
 
 > ⚠️ El archivo `.env` está incluido en `.gitignore` y nunca debe subirse al repositorio.
+
+## Seguridad: claves de API
+
+Las claves de Edamam viven en `runtimeConfig` privado, no en `runtimeConfig.public`. La diferencia importa: cualquier valor bajo `.public` se serializa dentro del bundle JS que descarga el navegador, así que cualquier visitante podría abrir las herramientas de desarrollador (pestaña Network o Sources) y leerlas en texto plano — sin importar que el `.env` nunca se suba al repositorio.
+
+Por eso ninguna llamada a Edamam sale directamente desde el cliente: cada composable (`useEdamam.js`, `useEdamamDataBase.js`, `useEdamamRecipeAnalysis.js`) y la página `nutrition-result.vue` llaman con `$fetch` a una ruta propia bajo `server/api/edamam-*.ts`, y es esa ruta —ejecutada en el servidor, con acceso al `runtimeConfig` privado— la que añade `app_id`/`app_key` antes de reenviar la petición a `api.edamam.com`. Si en el futuro se añade una nueva llamada a una API externa que necesite una clave, debe seguir este mismo patrón desde el principio.
 
 ## Uso
 
