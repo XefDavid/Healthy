@@ -6,14 +6,14 @@ import heroBowl from "~/assets/images/hero-bowl.png";
 <template>
 	<div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
 		<!--
-			Contenedor anclado arriba a la derecha con la MISMA relación de
-			aspecto que la imagen original (1535x1024). Así la posición del
-			plato (en %) siempre coincide con el anillo, sin importar el
-			tamaño real de la ventana.
+			Caja a ancho y alto completos del contenedor (antes solo cubría el
+			70% derecho y una altura fija por aspect-ratio, dejando huecos sin
+			fondo). object-cover recorta la imagen para llenar la caja sin
+			deformarla; el anillo/bowl puede desplazarse ligeramente respecto a
+			su posición calibrada original, pero es preferible a dejar huecos
+			negros sin fondo.
 		-->
-		<div
-			class="absolute right-0 top-0 aspect-[1535/1024] w-full max-w-[1535px] sm:w-[85%] lg:w-[70%]"
-		>
+		<div class="absolute inset-0">
 			<img
 				:src="toolsBackground"
 				alt=""

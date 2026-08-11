@@ -2,8 +2,12 @@
 import "primeicons/primeicons.css";
 
 const route = useRoute();
-const FIXED_HEIGHT_ROUTES = ["/", "/running-calculator"];
-const isFixedHeight = computed(() => FIXED_HEIGHT_ROUTES.includes(route.path));
+// Todas las páginas van a pantalla completa sin scroll por defecto (con
+// scroll interno dentro de su propia tarjeta si el contenido es largo).
+// recipe-results y data-base-result son la excepción: usan un layout más
+// antiguo sin PageBackground ni scroll interno todavía.
+const SCROLLABLE_ROUTES = ["/recipe-results", "/data-base-result"];
+const isFixedHeight = computed(() => !SCROLLABLE_ROUTES.includes(route.path));
 
 const isSidebarOpen = useSidebarOpen();
 </script>

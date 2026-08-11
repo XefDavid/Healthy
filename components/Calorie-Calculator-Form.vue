@@ -75,7 +75,7 @@ const macroSplit = [
 					:class="
 						sex === 'female'
 							? 'bg-lime-500 text-neutral-950 border-lime-500'
-							: 'bg-neutral-800 text-white border-neutral-700 hover:border-lime-500/50'
+							: 'bg-neutral-800 text-neutral-500 border-neutral-700 hover:border-lime-500/50'
 					"
 				>
 					{{ $t("calorieCalculator.female") }}
@@ -87,7 +87,7 @@ const macroSplit = [
 					:class="
 						sex === 'male'
 							? 'bg-lime-500 text-neutral-950 border-lime-500'
-							: 'bg-neutral-800 text-white border-neutral-700 hover:border-lime-500/50'
+							: 'bg-neutral-800 text-neutral-500 border-neutral-700 hover:border-lime-500/50'
 					"
 				>
 					{{ $t("calorieCalculator.male") }}
@@ -120,7 +120,7 @@ const macroSplit = [
 
 			<select
 				v-model="activity"
-				class="input !justify-start text-sm text-white bg-neutral-900"
+				class="input !justify-start !text-neutral-500 text-sm bg-neutral-900"
 			>
 				<option value="sedentary">
 					{{ $t("calorieCalculator.activity.sedentary") }}
@@ -141,7 +141,7 @@ const macroSplit = [
 
 			<select
 				v-model="goal"
-				class="input !justify-start text-sm text-white bg-neutral-900"
+				class="input !justify-start !text-neutral-500 text-sm bg-neutral-900"
 			>
 				<option value="lose">{{ $t("calorieCalculator.goal.lose") }}</option>
 				<option value="maintain">

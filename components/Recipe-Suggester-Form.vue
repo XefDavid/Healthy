@@ -125,27 +125,7 @@ const searchRecipes = async () => {
 			v-if="recipes.length > 0"
 			class="grid w-full max-w-5xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 lg:grid-cols-3"
 		>
-			<div
-				v-for="recipe in recipes"
-				:key="recipe.uri"
-				class="rounded-lg border border-neutral-800 bg-neutral-900/60 p-4 transition duration-300 hover:border-lime-500/40"
-			>
-				<a
-					:href="recipe.url"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="block h-full"
-				>
-					<img
-						:src="recipe.image"
-						:alt="recipe.label"
-						class="w-full size-45 object-cover rounded-lg"
-					/>
-					<h2 class="text-lg font-semibold mt-2 text-center text-white">
-						{{ recipe.label }}
-					</h2>
-				</a>
-			</div>
+			<RecipeCard v-for="recipe in recipes" :key="recipe.uri" :recipe="recipe" />
 		</div>
 	</div>
 </template>

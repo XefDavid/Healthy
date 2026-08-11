@@ -58,7 +58,7 @@ const redirectToResults = () => {
 <template>
 	<div class="flex w-full flex-col gap-6">
 		<div
-			class="flex w-full max-w-2xl flex-col sm:flex-row gap-2 justify-center items-center rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
+			class="flex w-full max-w-2xl flex-col gap-3 rounded-lg border border-neutral-800 bg-neutral-900/60 p-3"
 		>
 			<SelectNutrition
 				v-model:selectedQuantity="selectedQuantity"
@@ -67,7 +67,7 @@ const redirectToResults = () => {
 			/>
 			<button
 				@click="addIngredient"
-				class="text-sm h-[44px] w-full sm:w-[130px] shrink-0 bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
+				class="w-full text-sm h-[44px] bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
 				:disabled="!isIngredientValid"
 			>
 				{{ $t("common.addIngredient") }}

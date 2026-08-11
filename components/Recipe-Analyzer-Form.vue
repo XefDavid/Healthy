@@ -5,15 +5,26 @@ import SelectNutrition from "./Select-Nutrition.vue";
 import { useTranslateQuery } from "~/composables/useTranslateQuery";
 import { useEdamamRecipeAnalysis } from "~/composables/useEdamamRecipeAnalysis";
 import { translateDietLabel } from "~/utils/dietLabels";
+import { translateMeasure } from "~/utils/measureLabels";
 
 const router = useRouter();
 
-const { t } = useI18n();
+const { t, te } = useI18n();
 const { translateToEnglish } = useTranslateQuery();
 const { result, loading, error, analyzeRecipe } = useEdamamRecipeAnalysis();
 
 const dishName = ref("");
-const ingredientsList = ref<string[]>([]);
+// `unidad` viene siempre en inglés del desplegable de Select-Nutrition.vue
+// (optionValue), independientemente del idioma de la interfaz. `nombreOriginal`
+// es justo lo que el usuario escribió (se muestra tal cual); `nombreEn` es
+// solo para mandar a Edamam, nunca se enseña.
+interface IngredienteAnalizador {
+	cantidad: string;
+	unidad: string;
+	nombreOriginal: string;
+	nombreEn: string;
+}
+const ingredientsList = ref<IngredienteAnalizador[]>([]);
 const formError = ref("");
 
 const selectedQuantity = ref("");
@@ -40,12 +51,14 @@ const dietLabels = computed(() =>
 
 const addIngredient = async () => {
 	if (isIngredientValid.value) {
-		const translatedIngredient = await translateToEnglish(
-			selectedIngredient.value
-		);
-		ingredientsList.value.push(
-			`${selectedQuantity.value} ${selectedMeasure.value} of ${translatedIngredient}`
-		);
+		const nombreOriginal = selectedIngredient.value;
+		const nombreEn = await translateToEnglish(nombreOriginal);
+		ingredientsList.value.push({
+			cantidad: selectedQuantity.value,
+			unidad: selectedMeasure.value,
+			nombreOriginal,
+			nombreEn,
+		});
 
 		selectedQuantity.value = "";
 		selectedMeasure.value = "";
@@ -63,7 +76,10 @@ const removeIngredient = (index: number) => {
 const calculate = async () => {
 	if (!canCalculate.value) return;
 	dishName.value = await translateToEnglish(dishName.value);
-	await analyzeRecipe(dishName.value, ingredientsList.value);
+	const ingredientLinesEn = ingredientsList.value.map(
+		(ingrediente) => `${ingrediente.cantidad} ${ingrediente.unidad} of ${ingrediente.nombreEn}`
+	);
+	await analyzeRecipe(dishName.value, ingredientLinesEn);
 };
 
 const goToRunner = () => {
@@ -89,20 +105,18 @@ const goToRunner = () => {
 					class="input w-full !min-w-0 text-center"
 				/>
 
-				<div class="flex flex-col sm:flex-row gap-2 justify-center items-center">
-					<SelectNutrition
-						v-model:selectedQuantity="selectedQuantity"
-						v-model:selectedMeasure="selectedMeasure"
-						v-model:selectedIngredient="selectedIngredient"
-					/>
-					<button
-						@click="addIngredient"
-						class="text-sm h-[44px] w-full sm:w-[130px] shrink-0 bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
-						:disabled="!isIngredientValid"
-					>
-						{{ $t("common.addIngredient") }}
-					</button>
-				</div>
+				<SelectNutrition
+					v-model:selectedQuantity="selectedQuantity"
+					v-model:selectedMeasure="selectedMeasure"
+					v-model:selectedIngredient="selectedIngredient"
+				/>
+				<button
+					@click="addIngredient"
+					class="w-full text-sm h-[44px] bg-neutral-800 text-white border border-neutral-700 rounded-lg hover:bg-lime-500 hover:text-neutral-950 hover:border-lime-500 transition disabled:opacity-40 disabled:hover:bg-neutral-800 disabled:hover:text-white"
+					:disabled="!isIngredientValid"
+				>
+					{{ $t("common.addIngredient") }}
+				</button>
 
 				<p v-if="formError" class="text-red-500 text-sm">{{ formError }}</p>
 			</div>
@@ -120,7 +134,10 @@ const goToRunner = () => {
 						:key="index"
 						class="flex justify-between items-center px-3 py-1.5"
 					>
-						<span class="text-neutral-200 text-sm">{{ ingredient }}</span>
+						<span class="text-neutral-200 text-sm"
+							>{{ ingredient.cantidad }} {{ translateMeasure(ingredient.unidad, t, te) }}
+							{{ ingredient.nombreOriginal }}</span
+						>
 						<button
 							@click="removeIngredient(index)"
 							class="text-neutral-500 hover:text-red-500"

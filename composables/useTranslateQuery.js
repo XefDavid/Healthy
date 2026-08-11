@@ -21,6 +21,26 @@ export const useTranslateQuery = () => {
 		}
 	};
 
+	// Misma llamada que translateText, pero sin silenciar el fallo: lo
+	// relanza en vez de devolver el texto original. La usan los llamantes
+	// que necesitan distinguir éxito de fallo por texto individual (ej.
+	// useTranslateRecipe, para avisar si alguna traducción no estuvo
+	// disponible) en vez de los que solo quieren "mejor esto que nada".
+	const translateTextStrict = async (text, langpair) => {
+		if (!text) return text;
+
+		const response = await $fetch("https://api.mymemory.translated.net/get", {
+			params: {
+				q: text,
+				langpair,
+			},
+		});
+
+		const translated = response?.responseData?.translatedText;
+		if (!translated) throw new Error("MyMemory no devolvió traducción");
+		return translated;
+	};
+
 	// Español -> Inglés, usado para enviar las búsquedas del usuario a Edamam.
 	// Se ejecuta siempre, independientemente del idioma de la interfaz, porque
 	// el usuario puede escribir en español aunque la app esté en inglés (el
@@ -44,5 +64,5 @@ export const useTranslateQuery = () => {
 		return translateText(text, "en|es");
 	};
 
-	return { translateToEnglish, translateToSpanish };
+	return { translateToEnglish, translateToSpanish, translateTextStrict };
 };

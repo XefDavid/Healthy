@@ -6,10 +6,10 @@ import RecipeAnalyzerForm from "~/components/Recipe-Analyzer-Form.vue";
 	<div class="relative z-0 h-full px-4 py-8 sm:px-8 sm:py-10">
 		<PageBackground />
 
-		<div class="relative max-w-4xl">
+		<div class="relative flex h-full max-w-4xl flex-col">
 			<AppBreadcrumb :label="$t('recipeAnalyzer.title')" />
 
-			<div class="mb-8 flex items-center gap-4">
+			<div class="mb-8 flex shrink-0 items-center gap-4">
 				<div
 					class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-neutral-800 bg-neutral-900 text-lime-400"
 				>
@@ -26,7 +26,9 @@ import RecipeAnalyzerForm from "~/components/Recipe-Analyzer-Form.vue";
 				</div>
 			</div>
 
-			<RecipeAnalyzerForm />
+			<div class="min-h-0 flex-1 overflow-y-auto">
+				<RecipeAnalyzerForm />
+			</div>
 		</div>
 	</div>
 </template>

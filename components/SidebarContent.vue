@@ -15,6 +15,7 @@ const navItems = [
 	{ to: "/calorie-calculator", icon: "pi pi-gauge", label: "home.calorieCalculatorButton" },
 	{ to: "/recipe-suggester", icon: "pi pi-lightbulb", label: "home.suggesterButton" },
 	{ to: "/running-calculator", icon: "🏋️", label: "home.runnerButton" },
+	{ to: "/my-recipes", icon: "pi pi-bookmark", label: "sidebar.myRecipes" },
 ];
 
 const comingSoonItems = [

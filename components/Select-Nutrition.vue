@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, computed } from "vue";
-import Dropdown from "primevue/dropdown";
-import InputText from "primevue/inputtext";
 
 // Definición de propiedades recibidas desde el componente padre
 const props = defineProps({
@@ -38,34 +36,36 @@ const measures = computed(() => [
 ]);
 </script>
 <template>
-	<div class="flex flex-wrap justify-center items-center text-sm gap-2">
+	<div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-3">
 		<!-- Input para la cantidad -->
-		<InputText
+		<input
 			type="text"
 			:placeholder="$t('selectNutrition.quantity')"
 			:value="props.selectedQuantity"
 			@input="$emit('update:selectedQuantity', $event.target.value)"
-			class="w-[100px] h-[34px] text-center border border-neutral-700 rounded-lg"
+			class="input !min-w-0 text-center"
 		/>
 
-		<!-- Dropdown para seleccionar la medida -->
-		<Dropdown
-			:model-value="props.selectedMeasure"
-			:options="measures"
-			optionLabel="label"
-			optionValue="value"
-			:placeholder="$t('selectNutrition.measure')"
-			class="w-[150px] h-[34px] border-neutral-700 rounded-lg py-2 px-3 shadow-sm flex items-center"
-			@update:model-value="$emit('update:selectedMeasure', $event)"
-		/>
+		<!-- Select para la medida -->
+		<select
+			:value="props.selectedMeasure"
+			@change="$emit('update:selectedMeasure', $event.target.value)"
+			class="input !min-w-0 !justify-start bg-neutral-900 text-sm"
+			:class="props.selectedMeasure ? '!text-white' : '!text-neutral-500'"
+		>
+			<option value="" disabled hidden>{{ $t("selectNutrition.measure") }}</option>
+			<option v-for="measure in measures" :key="measure.value" :value="measure.value">
+				{{ measure.label }}
+			</option>
+		</select>
 
 		<!-- Input para el nombre del ingrediente -->
-		<InputText
+		<input
 			type="text"
 			:placeholder="$t('selectNutrition.ingredient')"
 			:value="props.selectedIngredient"
 			@input="$emit('update:selectedIngredient', $event.target.value)"
-			class="w-[140px] border border-neutral-700 rounded-lg text-center h-[34px]"
+			class="input !min-w-0 text-center"
 		/>
 	</div>
 </template>
