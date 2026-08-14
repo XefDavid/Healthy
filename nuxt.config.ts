@@ -16,6 +16,12 @@ export default defineNuxtConfig({
 	},
 	devtools: { enabled: NODE_ENV === "development" },
 	compatibilityDate: "2024-09-12",
+	// Explícito en vez de confiar en que Netlify lo autodetecte: sin esto,
+	// las rutas server/api/edamam-*.ts (donde viven las claves) podrían no
+	// desplegarse como funciones y la app se rompería en producción.
+	nitro: {
+		preset: "netlify",
+	},
 	primevue: {
 		options: {
 			theme: {
